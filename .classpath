@@ -40,5 +40,7 @@
 	<classpathentry kind="lib" path="E:/UTD/Research/mahout-core-0.7.jar/mahout-core-0.7.jar"/>
 	<classpathentry kind="lib" path="E:/UTD/Research/pdfbox-1.2.0.jar/pdfbox-1.2.0.jar"/>
 	<classpathentry kind="lib" path="E:/UTD/Research/com.lowagie.text-2.1.7.jar/com.lowagie.text-2.1.7.jar"/>
+	<classpathentry kind="lib" path="E:/UTD/Research/org.apache.commons.httpclient.jar/org.apache.commons.httpclient.jar"/>
+	<classpathentry kind="lib" path="E:/UTD/Research/axis-10.3.jar/axis-10.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
