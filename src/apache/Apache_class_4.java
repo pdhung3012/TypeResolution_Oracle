@@ -6,8 +6,6 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.host.URL;
-
 public class Apache_class_4 {
 	public static void main(String[] args) {
 	    final WebClient webClient = new WebClient();

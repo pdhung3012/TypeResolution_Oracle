@@ -11,10 +11,10 @@ import org.apache.directory.shared.ldap.name.LdapDN;
 
 public class Apache_class_6 {
 	public void startDirectoryService() throws Exception {
-	    Entry service = new DefaultDirectoryService();
+	    DefaultDirectoryService service = new DefaultDirectoryService();
 	    service.getChangeLog().setEnabled( false );
 
-	    Partition apachePartition = addPartition("apache", "dc=apache,dc=org");
+//	    Partition apachePartition = addPartition("apache", "dc=apache,dc=org");
 
 	    LdapServer ldapService = new LdapServer();
 	    ldapService.setTransports(new TcpTransport(389));
@@ -23,18 +23,7 @@ public class Apache_class_6 {
 	    service.startup();
 	    ldapService.start();
 
-	    // Inject the apache root entry if it does not already exist
-	    try
-	    {
-	        service.getAdminSession().lookup( apachePartition.getSuffixDn() );
-	    }
-	    catch ( LdapNameNotFoundException lnnfe )
-	    {
-	        LdapDN dnApache = new LdapDN( "dc=Apache,dc=Org" );
-	        ServerEntry entryApache = service.readEntry( dnApache );
-	        entryApache.add( "objectClass", "top", "domain", "extensibleObject" );
-	        entryApache.add( "dc", "Apache" );
-	        service.getAdminSession().add( entryApache );
-	    }
+	    Partition apachePartition = null;
+		service.getAdminSession().lookup( apachePartition.getSuffixDn() );
 	}
 }

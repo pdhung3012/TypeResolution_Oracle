@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.portlet.ActionRequest;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -29,9 +30,9 @@ public class Apache_class_12 {
 	        if(PortletFileUpload.isMultipartContent(request)){
 	            DiskFileItemFactory factory = new DiskFileItemFactory();
 	            PortletFileUpload upload = new PortletFileUpload(factory);
-	            List<DiskFileItem> fileItems = upload.parseRequest(request);
+	            List<FileItem> fileItems = upload.parseRequest(request);
 //	            DiskFileItem fileItem;
-	            for( DiskFileItem fileItem : fileItems ) {
+	            for( FileItem fileItem : fileItems ) {
 	                String name = fileItem.getFieldName();
 	                //now set appropriate variable, populate hashtable
 	                if( fileItem.isFormField() ) {

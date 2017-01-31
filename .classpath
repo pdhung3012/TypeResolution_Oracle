@@ -24,5 +24,12 @@
 	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/portlet-2.0.jar"/>
 	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/shared-ldap-model-1.0.0-m11-sources.jar"/>
 	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/velocity-1.7.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/shared-ldap-0.9.5.4.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/poi-scratchpad-3.15.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/commons-fileupload-1.3.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/mahout-core-0.7.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/org.apache.commons.httpclient.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/htmlunit.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/mina-core-1.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
