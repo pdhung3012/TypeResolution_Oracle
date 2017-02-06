@@ -1,16 +1,26 @@
 package hibernate;
+//ID = 1080766
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class hibernate_class_5 {
-	public class CharityTransferDAO extends HibernateDaoSupport implements ICharityTransfer {
 
-		   public void delete(CharityTransfer charityTransfer) throws IMADataException {
-		       try {
-		         getSessionFactory()
-		                 .getCurrentSession()
-		                 .delete(charityTransfer);
-		      }
-		      catch (HibernateException e) {
-		        throw new IMADataException("failed to delete charity shipping information", e);
-		      }    
-		}
+    private static final SessionFactory sessionFactory = buildSessionFactory();
+
+    private static SessionFactory buildSessionFactory() {
+        try {
+            // Create the SessionFactory from hibernate.cfg.xml
+            return new Configuration().configure().buildSessionFactory();
+        }
+        catch (Throwable ex) {
+            // Make sure you log the exception, as it might be swallowed
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
 }
