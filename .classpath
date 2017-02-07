@@ -55,5 +55,6 @@
 	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/gxt-2.2.1.jar"/>
 	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/aqute.gwt.greeter.jar"/>
 	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/gwt-user-1.5.1.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/hibernate-shards.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
