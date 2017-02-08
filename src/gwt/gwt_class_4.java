@@ -1,54 +1,28 @@
 package gwt;
-
+//ID = 1318732
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.VerticalSplitPanel;
 public class gwt_class_4{
+	public class MyView extends Composite
+	{
+	    private VerticalSplitPanel mainPanel=new VerticalSplitPanel();
 
-    private ControlPanel cp;
-    private FormPanel form = new FormPanel();
-    private FileUpload fu =  new FileUpload();
+	    public void CountryFilterView()
+	    {    
 
-    public gwt_class_4(ControlPanel cp) {
-     this.cp = cp;
-     this.cp.setPrimaryArea(getFileUploaderWidget());
-    }
-
-    @SuppressWarnings("deprecation")
-    public Widget getFileUploaderWidget() {
-     form.setEncoding(FormPanel.ENCODING_MULTIPART);
-     form.setMethod(FormPanel.METHOD_POST);
-     // form.setAction(/* WHAT SHOULD I PUT HERE */);
-
-     VerticalPanel holder = new VerticalPanel();
-
-     fu.setName("upload");
-     holder.add(fu);
-     holder.add(new Button("Submit", new ClickHandler() {
-      public void onClick(ClickEvent event) {
-       GWT.log("You selected: " + fu.getFilename(), null);
-       form.submit();
-      }
-     }));
-
-     form.addSubmitHandler(new FormPanel.SubmitHandler() {
-      public void onSubmit(SubmitEvent event) {
-       if (!"".equalsIgnoreCase(fu.getFilename())) {
-        GWT.log("UPLOADING FILE????", null);
-                                        // NOW WHAT????
-       }
-       else{
-        event.cancel(); // cancel the event
-       }
-
-      }
-     });
-
-     form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
-      public void onSubmitComplete(SubmitCompleteEvent event) {
-       Window.alert(event.getResults());
-      }
-     });
-
-     form.add(holder);
-
-     return form;
-    }
+	     mainPanel.setSize("100%", "100%");
+	     mainPanel.setSplitPosition("50%");
+	     // Add some content
+	        String randomText = "This is some text to show how the contents on either "
+	            + "side of the splitter flow.   "
+	            + "This is some text to show how the contents on either "
+	            + "side of the splitter flow.   "
+	            + "This is some text to show how the contents on either "
+	            + "side of the splitter flow.   ";
+	        mainPanel.setTopWidget(new HTML(randomText));
+	        mainPanel.setBottomWidget(new HTML(randomText));
+	        initWidget(mainPanel);
+	    }
+	}
 }
