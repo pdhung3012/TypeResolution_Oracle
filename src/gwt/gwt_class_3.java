@@ -31,13 +31,6 @@ public class gwt_class_3 implements EntryPoint {
 
   Button btnSave = new Button("SAVE");
 
-  btnSave.addClickHandler(
-    new ClickHandler(){
-     public void onClick(ClickEvent event){
-      saveData2DB(nameTxt.getText());
-     }
-    } 
-  );
   return btnSave;
  }
 
