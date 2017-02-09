@@ -1,32 +1,35 @@
 package gwt;
 
-import com.extjs.gxt.ui.client.widget.TabPanel;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.TextBox;
 
 public class gwt_class_30 {
-	public class MyTabHeader extends Composite {
-		  @UiField Image icon;
+	static TextBox firstName = new TextBox();
+    static TextBox surName = new TextBox();
+    static DialogBox box;
 
-		  public MyTabHeader(String iconPath) {
-//		    Object uiBinder;
-//			initWidget(uiBinder.createAndBindUi(this));
-		    this.icon.setUrl(iconPath);
-		  }
-		}
+    static public DialogBox buildNewElecPopup() {
 
-		public class MyTabPanel extends TabPanel {
-		  public MyTabPanel() {
-//		    String icon1 = MyResources.INSTANCE.icon1().getURL();
-		    MyTabHeader tabHeader1 = new MyWidget(icon1);
-		    Widget tabContent1 = new HTML("Content 1");
-		    add(tabContent1, tabHeader1);
+        DialogBox box = new DialogBox();
+        box.setAutoHideEnabled(true);
 
-		    String icon2 = MyResources.INSTANCE.icon2().getURL();
-		    MyTabHeader tabHeader2 = new MyWidget(icon2);
-		    Widget tabContent2 = new HTML("Content 2");
-		    add(tabContent2, tabHeader2);
-		  }
-		}
+        box.setText("Add a New Candidate");
+        box.setAnimationEnabled(true);
+        box.setGlassEnabled(true);
+
+        Grid dialogGrid = new Grid(2, 3);
+        dialogGrid.setPixelSize(250 , 125);
+        dialogGrid.setCellPadding(10);
+        dialogGrid.setWidget(0, 0, new HTML("<strong>First Name</strong>"));
+        dialogGrid.setWidget(0, 1, firstName);
+
+        dialogGrid.setWidget(1, 0, new HTML("<strong>Surname</strong>"));
+        dialogGrid.setWidget(1, 1, surName);
+
+        box.add(dialogGrid);
+
+    return box;
+    }
 }
