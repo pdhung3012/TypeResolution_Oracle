@@ -7,7 +7,7 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-public class jodatime_class_1 {
+public class JodaTime01 {
 
     public static void main(String[] args) {    
      DateTimeFormatter timeParser = ISODateTimeFormat.timeParser();
