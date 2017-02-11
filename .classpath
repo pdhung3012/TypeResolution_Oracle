@@ -74,5 +74,7 @@
 	<classpathentry kind="lib" path="lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/struts.jar.zip"/>
 	<classpathentry kind="lib" path="lib/velocity-1.7.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/xstream-1.4.4.jar"/>
+	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/ksoap2-android-2.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
