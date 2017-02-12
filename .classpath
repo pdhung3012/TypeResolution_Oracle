@@ -74,12 +74,12 @@
 	<classpathentry kind="lib" path="lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/struts.jar.zip"/>
 	<classpathentry kind="lib" path="lib/velocity-1.7.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/xstream-1.4.4.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/ksoap2-android-2.5.2.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/xstream-hibernate-1.4.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/flex-messaging-core-3.2.0.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/cloudbees-api-client-1.5.0.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/junit-4.3.jar"/>
-	<classpathentry kind="lib" path="E:/Learning/JavaWorkSpace/TypeResolution_Oracle/lib/xmlpull-xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.4.4.jar"/>
+	<classpathentry kind="lib" path="lib/ksoap2-android-2.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-hibernate-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/flex-messaging-core-3.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/cloudbees-api-client-1.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.3.jar"/>
+	<classpathentry kind="lib" path="lib/xmlpull-xpp3-1.1.4c.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
