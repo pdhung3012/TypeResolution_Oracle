@@ -1,10 +1,10 @@
-package android;
+package androidExamples;
 //ID = 151777
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class android_class_50 extends Activity {
+public class Android04 extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
