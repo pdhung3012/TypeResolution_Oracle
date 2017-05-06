@@ -1,0 +1,5066 @@
+http://stackoverflow.com/questions/576513/
+    URL u=new URL("http://www.path.to/a.mp4?video");
+    HttpURLConnection c=(HttpURLConnection)u.openConnection();
+    c.setRequestMethod("GET");
+    c.setDoOutput(true);
+    c.connect();
+    String root="root";
+    FileOutputStream f=new FileOutputStream(new File(root,"Video.mp4"));
+    InputStream in=c.getInputStream();
+    byte[] buffer=new byte[1024];
+    int len1=0;
+    while ((len1=in.read(buffer)) > 0) {
+      f.write(buffer);
+    }
+    f.close();
+
+http://stackoverflow.com/questions/1262298/
+public static void load(Session session, List<String> values){
+	patient PatientInfo = new patient(); 
+
+	PatientInfo.setPatientId(Integer.parseInt(values.get(0)));
+	PatientInfo.setPatientName( values.get(1));
+	PatientInfo.setProviderId( values.get(2) );
+
+	session.save( PatientInfo );
+}
+
+http://stackoverflow.com/questions/4302983/
+public static Session currentSession() throws Exception {
+  Session s=(Session)session.get();
+  if (s != null) {
+    s.setCacheMode(CacheMode.REFRESH);
+  }
+  if (s == null) {
+    s=openSession();
+    session.set(s);
+  }
+  return s;
+}
+
+
+http://stackoverflow.com/questions/1215817/
+@Override public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  IntentFilter intentFilter=new IntentFilter();
+  intentFilter.addAction(Intent.ACTION_SEND);
+  intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+  try {
+    intentFilter.addDataType("image/*");
+  }
+ catch (  MalformedMimeTypeException e) {
+    Log.e(TAG,e.toString());
+  }
+  Intent x=registerReceiver(new BroadcastReceiver(){
+    public void onReceive(    Context context,    Intent intent){
+      Log.d(TAG,"Received intent " + intent);
+      intent.setComponent(new ComponentName(context,Uploader.class));
+      startActivity(intent);
+    }
+  },intentFilter);
+  if (x == null)   Log.i(TAG,"failed to regist a receiver");
+ else   Log.i(TAG,"registed a receiver successfully");
+}
+
+http://stackoverflow.com/questions/5059663/
+public DateTimeZone getZone(String id){
+  if (id == null) {
+    return DateTimeZone.UTC;
+  }
+  TimeZone tz=TimeZone.getTimeZone(id);
+  if (tz == null) {
+    return DateTimeZone.UTC;
+  }
+  int rawOffset=tz.getRawOffset();
+  if (tz.inDaylightTime(new Date())) {
+    rawOffset+=tz.getDSTSavings();
+  }
+  return DateTimeZone.forOffsetMillis(rawOffset);
+}
+
+http://stackoverflow.com/questions/9543331/
+{
+  DateTime s=new DateTime(Long.parseLong("1330573027000"));
+  DateTime e=new DateTime(Long.parseLong("1331005027000"));
+  Weeks weeks=Weeks.weeksBetween(s,e).plus(1);
+  DateTime start=new DateTime(Long.parseLong("1330659427000"));
+  DateTime end=new DateTime(Long.parseLong("1530659427000"));
+  DateTime finalStart=start.dayOfWeek().withMinimumValue();
+  DateTime finalEnd=end.dayOfWeek().withMaximumValue();
+}
+
+http://stackoverflow.com/questions/2195369/
+public static void main(String[] args) {
+	ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+	classes.add(Integer.class);
+	classes.add(Long.class);
+	classes.add(Double.class);
+	classes.add(Float.class);
+
+	ArrayList<Number> numbers = new ArrayList<Number>();
+	numbers.add(new Integer(3));
+	numbers.add(new Long(3));
+	numbers.add(new Double(3));
+	numbers.add(new Float(3));
+
+	XStream xml = new XStream();
+	xml.alias("inty", Integer.class);
+	xml.aliasType("inty", Integer.class);
+	xml.aliasPackage("jl", "java.lang");
+
+	System.out.println(xml.toXML(classes));
+	System.out.println(xml.toXML(numbers));
+}
+
+http://stackoverflow.com/questions/11484532/
+ public Object unmarshal(HierarchicalStreamReader reader,
+	UnmarshallingContext context) {
+ // TODO: use reflection to create animal object based on what you xml tag you have at hahd.
+ return context.convertAnother(context.currentObject(), SomeAnimalClazz.class);
+}
+
+
+http://stackoverflow.com/questions/1262298/
+/** 
+ * @param PatientId the PatientId to set
+ */
+public void setPatientId(int PatientId){
+  this.patientId=PatientId;
+}
+
+http://stackoverflow.com/questions/1262298/
+/** 
+ * @param PatientName the PatientName to set
+ */
+public void setPatientName(String PatientName){
+  this.patientName=PatientName;
+}
+
+http://stackoverflow.com/questions/1262298/
+/** 
+ * @param id the ProviderId to set
+ */
+public void setProviderId(String id){
+  this.providerId=id;
+}
+
+http://stackoverflow.com/questions/1262298/
+/** 
+ * @param id the ProviderId to set
+ */
+public void setProvider(String id){
+  this.providerId=id;
+}
+
+http://stackoverflow.com/questions/4302983/
+public static Session openSession() {
+    Session session = SessionFactoryUtils.doGetSession(sessionFactory, true);
+    return session;
+}
+
+http://stackoverflow.com/questions/9313151/
+{
+  DateTimeFormatter dateFromatter=DateTimeFormat.forPattern("MM/dd/yyyy");
+  DateTime startDate=dateFromatter.parseDateTime("01/02/2012");
+  DateTime endDate=dateFromatter.parseDateTime("01/31/2012");
+  List<LocalDate> dates=new ArrayList<LocalDate>();
+  int days=Days.daysBetween(startDate,endDate).getDays();
+}
+
+http://stackoverflow.com/questions/4675241/
+{
+  String start="Sunday, January 09, 2011 6:15:00 PM";
+  DateTimeFormatter parser1=DateTimeFormat.forPattern("EEEE, MMMM dd, yyyy H:mm:ss aa");
+  DateTime startTime=parser1.parseDateTime(start);
+}
+
+http://stackoverflow.com/questions/2598154/
+FormPanel form = null;
+Button submit = null;
+function onModuleLoad(){
+  form = FormPanel.wrap(DOM.getElementById("MyForm"));
+  form.setEncoding(FormPanel.ENCODING_MULTIPART);
+
+  submit = Button.wrap(DOM.getElementById("OK"));
+  submit.addClickHandler(new ClickHandler() {
+   public void onClick(ClickEvent event) {
+    // button clicked confirmed
+    form.submit();
+   }
+  });
+
+
+  formSubmitHandler = form.addSubmitHandler(new SubmitHandler(){
+   public void onSubmit(SubmitEvent event) {
+                    }
+
+  });
+}
+
+http://stackoverflow.com/questions/3307330/
+{
+  DateTimeParser[] parsers={DateTimeFormat.forPattern("yyyy-MM-dd HH").getParser(),DateTimeFormat.forPattern("yyyy-MM-dd").getParser()};
+  DateTimeFormatter formatter=new DateTimeFormatterBuilder().append(null,parsers).toFormatter();
+  DateTime date1=formatter.parseDateTime("2010-01-01");
+  DateTime date2=formatter.parseDateTime("2010-01-01 01");
+}
+
+
+http://stackoverflow.com/questions/3184069/
+public AbstractHibernateDaoImpl(Class<T> domainClass) {
+    this.domainClass = domainClass;
+}
+
+http://stackoverflow.com/questions/3184069/
+public void setSessionFactory(SessionFactory sf){
+  this.sf=sf;
+}
+
+http://stackoverflow.com/questions/3184069/
+public void delete(T object){
+  getSession().delete(object);
+}
+
+http://stackoverflow.com/questions/3184069/
+@SuppressWarnings("unchecked") 
+public T load(long id){
+  return (T)getSession().get(domainClass,id);
+}
+
+http://stackoverflow.com/questions/3184069/
+public int countAll(){
+  Criteria criteria=getSession().createCriteria(domainClass);
+  criteria.setProjection(Projections.rowCount());
+  return (Integer)criteria.uniqueResult();
+}
+
+http://stackoverflow.com/questions/3184069/
+public void save(T object){
+  getSession().saveOrUpdate(object);
+}
+
+http://stackoverflow.com/questions/3184069/
+@SuppressWarnings("unchecked") 
+public List<T> findAll(){
+  Criteria criteria=getSession().createCriteria(domainClass);
+  List<T> r=(List<T>)criteria.list();
+  return r;
+}
+
+http://stackoverflow.com/questions/993137/
+{
+  PowerManager pm=(PowerManager)getSystemService(Context.POWER_SERVICE);
+  PowerManager.WakeLock wl=pm.newWakeLock(PowerManager.FULL_WAKE_LOCK,"My Tag");
+}
+
+http://stackoverflow.com/questions/2166506/
+public void onModuleLoad(){
+  Button b=new Button("Click me",new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      Window.alert("Hello, AJAX");
+    }
+  }
+);
+  RootPanel.get().add(b);
+}
+
+
+http://stackoverflow.com/questions/3635828/
+@Override
+    public void onModuleLoad(){
+        TabBar bar=new TabBar();
+        bar.addTab("foo");
+        bar.addTab("bar");
+        bar.addTab("baz");
+        bar.addSelectionHandler(new SelectionHandler(){
+		 public void onSelection(SelectionEvent event){
+                 //let user know what you just did
+                 Window.alert("you clicked tab"+event.getSelectedItem());
+             }
+
+         });
+        // Just for fun, let's disallow selection of 'bar'.
+         bar.addBeforeSelectionHandler(new BeforeSelectionHandler() {
+          public void onBeforeSelection(BeforeSelectionEvent event) {
+       if (event.getItem().intValue() == 1) {
+          event.cancel();
+                }
+            }
+         });
+}
+
+http://stackoverflow.com/questions/1938476/
+public static SessionFactory createSessionFactory() throws NamingException {
+  Configuration prototypeConfig=new Configuration().configure(SHARD_CFG_0);
+  prototypeConfig.addResource(SHARDED_TABLE);
+  List<ShardConfiguration> shardConfigs=new ArrayList<ShardConfiguration>();
+  shardConfigs.add(buildShardConfig(SHARD_CFG_0));
+  shardConfigs.add(buildShardConfig(SHARD_CFG_1));
+  ShardStrategyFactory shardStrategyFactory=buildShardStrategyFactory();
+  ShardedConfiguration shardedConfig=new ShardedConfiguration(prototypeConfig,shardConfigs,shardStrategyFactory);
+  return shardedConfig.buildShardedSessionFactory();
+}
+
+http://stackoverflow.com/questions/1938476/
+private static ShardStrategyFactory buildShardStrategyFactory(){
+  ShardStrategyFactory shardStrategyFactory=new ShardStrategyFactory(){
+    public ShardStrategy newShardStrategy1(    List<ShardId> shardIds){
+      RoundRobinShardLoadBalancer loadBalancer=new RoundRobinShardLoadBalancer(shardIds);
+      ShardSelectionStrategy pss=new RoundRobinShardSelectionStrategy(loadBalancer);
+      ShardResolutionStrategy prs=new AllShardsShardResolutionStrategy(shardIds);
+      ShardAccessStrategy pas=new SequentialShardAccessStrategy();
+      return new ShardStrategyImpl(pss,prs,pas);
+    }
+    @Override public ShardStrategy newShardStrategy(    List<ShardId> arg0){
+      return null;
+    }
+  }
+;
+  return shardStrategyFactory;
+}
+
+http://stackoverflow.com/questions/1938476/
+private static ShardConfiguration buildShardConfig( String configFile ) {
+	Configuration config = new Configuration().configure( configFile );
+	return new ConfigurationToShardConfigurationAdapter( config );
+}
+
+http://stackoverflow.com/questions/3642820/
+public static boolean toXML(Object object, File file) {
+    XStream xStream = new XStream(new DomDriver("UTF-8"));
+    OutputStream outputStream = null;
+
+    try {
+        outputStream = new FileOutputStream(file);
+        xStream.toXML(object, outputStream);
+    }
+    catch (Exception exp) {
+        log.error(null, exp);
+        return false;
+    }
+    finally {
+        if (false == close(outputStream)) {
+            return false;
+        }
+        outputStream = null;
+    }
+
+    return true;
+}
+
+http://stackoverflow.com/questions/904376/
+public boolean onKey(View v, int keyCode, KeyEvent event){
+	  if(keyCode == KeyEvent.KEYCODE_BACK){
+				//do stuff
+	  }
+	  invalidate();
+	  return true;        
+ }
+
+http://stackoverflow.com/questions/2155194/
+private void addStartupBox() {
+    VerticalPanel boxPanel = setBoxSize();      
+    com.google.gwt.user.client.ui.Label title = createBoxTitle("Prüfungen");        
+
+    // Create second panel for the content of a box     
+    com.google.gwt.user.client.ui.VerticalPanel boxContent = new com.google.gwt.user.client.ui.VerticalPanel();
+    boxContent.setSpacing(10);
+    boxContent.setHorizontalAlignment(com.google.gwt.user.client.ui.VerticalPanel.ALIGN_CENTER);
+
+    // Create content for the box
+    Button but1 = new Button("A");
+    but1.setPixelSize(280, 25);     
+
+    Button but2 = new Button("B");
+    but2.setPixelSize(280, 25);
+
+    Button but3 = new Button("C");
+    but3.setPixelSize(280, 25);
+
+    // Add buttons to boxContent
+    boxContent.add(but1);
+    boxContent.add(but2);
+    boxContent.add(but3);
+
+    // Add title and boxContent to boxPanel     
+    boxPanel.add(title);
+    boxPanel.add(boxContent);
+
+    RootPanel.get("boxPanelContainer").add(boxPanel);
+}
+
+
+http://stackoverflow.com/questions/29466312/
+public static void main(String arg[]){
+  MapTest services = new MapTest();
+services.setServicesHealth("ID01", "Jack");
+services.setServicesHealth("ID02", "Neil);
+
+    XStream stream = new XStream(new StaxDriver());
+    stream.alias("MapTest", MapTest.class);
+    stream.addImplicitMap(MapTest.class, "map", "id", String.class, "name");
+    String xmlStr = stream.toXML(services);
+    System.out.println(xmlStr);
+}
+
+http://stackoverflow.com/questions/29466312/
+public MapTest(){
+  mapList=new HashMap<String,String>();
+}
+
+http://stackoverflow.com/questions/29466312/
+public void setServicesHealth(String id,String name){
+  map.put(id,name);
+}
+
+http://stackoverflow.com/questions/581581/
+{
+  DateMidnight today=new DateMidnight(2009,2,24);
+  DateTimeZone zone=today.getZone();
+  DateTime previousTransition=new DateTime(zone.previousTransition(today.getMillis()));
+  System.out.println(previousTransition);
+  DateTime nextTransition=new DateTime(zone.nextTransition(today.getMillis()));
+  System.out.println(nextTransition);
+}
+
+http://stackoverflow.com/questions/2045290/
+{
+  XStream xstream=new XStream();
+  xstream.autodetectAnnotations(true);
+  xstream.registerConverter(new PositionConverter());
+  final Position position=new Position();
+  position.setTitle("The Title");
+  position.setStartDate("The Start Date");
+  position.setEndDate("The End Date");
+  final String xml=xstream.toXML(position);
+  System.out.println("Generated XML:");
+  System.out.println(xml);
+  final Position genPosition=(Position)xstream.fromXML(xml);
+  System.out.println("Generated Position:");
+  System.out.println("\tTitle: " + genPosition.getTitle());
+  System.out.println("\tStart Date: " + genPosition.getStartDate());
+  System.out.println("\tEnd Date: " + genPosition.getEndDate());
+}
+
+http://stackoverflow.com/questions/2045290/
+public void setEndDate(String endDate){
+  this.endDate=endDate;
+}
+
+http://stackoverflow.com/questions/2045290/
+public void setStartDate(String startDate){
+  this.startDate=startDate;
+}
+
+http://stackoverflow.com/questions/2045290/
+public void marshal(Object value,HierarchicalStreamWriter writer,MarshallingContext context){
+  Position position=(Position)value;
+  writer.startNode("PositionBorder");
+  writer.startNode("Title");
+  writer.setValue(position.getTitle());
+  writer.endNode();
+  writer.startNode("StartDate");
+  writer.setValue(position.getStartDate());
+  writer.endNode();
+  writer.startNode("EndDate");
+  writer.setValue(position.getEndDate());
+  writer.endNode();
+  writer.endNode();
+}
+
+http://stackoverflow.com/questions/2045290/
+public void setTitle(String title){
+  this.title=title;
+}
+
+http://stackoverflow.com/questions/2045290/
+public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context){
+  Position position=new Position();
+  reader.moveDown();
+  reader.moveDown();
+  String title=reader.getValue();
+  position.setTitle(title);
+  reader.moveUp();
+  reader.moveDown();
+  String startDate=reader.getValue();
+  position.setStartDate(startDate);
+  reader.moveUp();
+  reader.moveDown();
+  String endDate=reader.getValue();
+  position.setEndDate(endDate);
+  reader.moveUp();
+  return position;
+}
+
+http://stackoverflow.com/questions/17616142/
+public Container(String name, List<NumberOfPersonnel> noEmp) {
+    this.name = name;
+    this.numberOfEmployees = noEmp;
+}
+
+http://stackoverflow.com/questions/17616142/
+public String toString() {
+    return year + ": " + value;
+}
+
+http://stackoverflow.com/questions/17616142/
+public static void main(String[] args) throws Exception {
+    XStream xs = new XStream();
+    xs.processAnnotations(Container.class);
+
+    System.out.println("Unmarshalling:");
+    System.out.println(xs.fromXML(new File("in.xml")));
+
+    System.out.println("Marshalling:");
+    System.out.println(xs.toXML(new Container("World",
+           Arrays.asList(new NumberOfPersonnel(2001, 1000),
+                         new NumberOfPersonnel(2002, 500)))));
+  }
+  
+http://stackoverflow.com/questions/17616142/
+public NumberOfPersonnel(int year,double value){
+  this.year=year;
+  this.value=value;
+}
+
+http://stackoverflow.com/questions/17616142/
+public String toString(){
+  return name + ", " + numberOfEmployees;
+}
+
+http://stackoverflow.com/questions/2482222/
+  String url="http: gd.geobytes.com/gd?after=-1&variables=GeobytesCountry,GeobytesCity";
+  RequestBuilder builder=new RequestBuilder(RequestBuilder.GET,URL.encode(url));
+  try {
+    Request request=builder.sendRequest(null,new RequestCallback(){
+      public void onError(      Request request,      Throwable exception){
+      }
+      public void onResponseReceived(      Request request,      Response response){
+        System.out.println(response.getText() + "Response");
+        if (200 == response.getStatusCode()) {
+          Window.alert(response.getText());
+        }
+ else {
+          Window.alert(response.getText());
+        }
+      }
+    }
+);
+  }
+ catch (  RequestException e) {
+    e.printStackTrace();
+  }
+
+http://stackoverflow.com/questions/1352950/
+/** 
+ * Called when the activity is first created. 
+ */
+@Override public void onCreate(Bundle icicle){
+  super.onCreate(icicle);
+  setContentView(R.layout.main);
+  final EditText mealpricefield=(EditText)findViewById(100);
+  final TextView answerfield=(TextView)findViewById(R.id.lay);
+  final Button button=(Button)findViewById(101);
+  button.setOnClickListener(new Button.OnClickListener(){
+    public void onClick(    View v){
+      try {
+        Log.i(tag,"onClick invoked.");
+        String mealprice=mealpricefield.getText().toString();
+        Log.i(tag,"mealprice is [" + mealprice + "]");
+        String answer="";
+        if (mealprice.indexOf("$") == -1) {
+          mealprice="$" + mealprice;
+        }
+        float fmp=0.0F;
+        NumberFormat nf=java.text.NumberFormat.getCurrencyInstance();
+        fmp=nf.parse(mealprice).floatValue();
+        fmp*=1.2;
+        Log.i(tag,"Total Meal Price (unformatted) is [" + fmp + "]");
+        answer="Full Price, including 20% Tip: " + nf.format(fmp);
+        answerfield.setText(answer);
+        Log.i(tag,"onClick Complete");
+      }
+ catch (      java.text.ParseException pe) {
+        Log.i(tag,"Parse exception caught");
+        answerfield.setText("Failed to parse amount?");
+      }
+catch (      Exception e) {
+        Log.e(tag,"Failed to Calculate Tip:" + e.getMessage());
+        e.printStackTrace();
+        answerfield.setText(e.getMessage());
+      }
+    }
+  }
+);
+}
+
+http://stackoverflow.com/questions/2764988/
+public AdminMenuAreaView(){
+  vPanel=new VerticalPanel();
+  initWidget(vPanel);
+}
+
+http://stackoverflow.com/questions/2764988/
+public void addLink(String s){
+  registerUserLink=new Hyperlink(s,"this is new target");
+  this.vPanel.add(registerUserLink);
+  registerUserLink.setVisible(true);
+}
+
+
+http://stackoverflow.com/questions/2008043/
+private String generateResponse(final XStream xStream){
+  StringWriter writer=new StringWriter();
+  xStream.marshal(this,new PrettyPrintWriter(writer){
+    @Override 
+	public void addAttribute(    final String key,    final String value){
+      if (!key.equals("class")) {
+        super.addAttribute(key,value);
+      }
+    }
+  }
+);
+  return writer.toString();
+}
+
+http://stackoverflow.com/questions/549451/
+/** 
+ * Called when the activity is first created. 
+ */
+@Override public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  LinearLayout l=new LinearLayout(this);
+  LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+  LinearLayout.LayoutParams mlp=new LinearLayout.LayoutParams(new ViewGroup.MarginLayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+  mlp.setMargins(0,0,2,0);
+  for (int i=0; i < 10; i++) {
+    TextView t=new TextView(this);
+    t.setText("Hello");
+    t.setBackgroundColor(Color.RED);
+    t.setSingleLine(true);
+    l.addView(t,mlp);
+  }
+  setContentView(l,lp);
+}
+
+http://stackoverflow.com/questions/9122641/
+{
+  Duration duration=new Duration(1328223198241L - 1326308781131L);
+  Period p2=new Period(duration.getMillis());
+  System.out.println(p2.getDays());
+  System.out.println(p2.getHours());
+}
+
+
+http://stackoverflow.com/questions/1760182/
+ RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode("http://localhost:8080/xxxx/yyyy"));
+
+try {
+	  Request request = builder.sendRequest(null, new RequestCallback() {
+		public void onError(Request request, Throwable exception) {
+		}
+
+		public void onResponseReceived(Request request, Response response) {
+		}
+
+	  });
+	} catch (RequestException e) {
+	  possiblePages.clear(); possiblePages.addItem("could not connect to server");        
+	}
+		
+http://stackoverflow.com/questions/631238/
+public SlideBar(Context context, AttributeSet attrs)
+{
+	super(context, attrs);
+	oOffset = this.getThumbOffset();
+	oProgress = this.getProgress();
+}
+
+http://stackoverflow.com/questions/631238/
+ public SlideBar(Context context, AttributeSet attrs, int defStyle)
+{
+		super(context, attrs, defStyle);
+}
+
+http://stackoverflow.com/questions/631238/
+protected synchronized void onMeasure(int widthMeasureSpec,int heightMeasureSpec){
+  int height=View.MeasureSpec.getSize(heightMeasureSpec);
+  oHeight=height;
+  this.setMeasuredDimension(oWidth,oHeight);
+}
+
+http://stackoverflow.com/questions/631238/
+protected void onSizeChanged(int w,int h,int oldw,int oldh){
+  super.onSizeChanged(h,w,oldw,oldh);
+}
+
+http://stackoverflow.com/questions/631238/
+protected void onLayout(boolean changed,int l,int t,int r,int b){
+  super.onLayout(changed,l,t,r,b);
+  left=l;
+  right=r;
+  top=t;
+  bottom=b;
+}
+
+http://stackoverflow.com/questions/631238/
+protected void onDraw(Canvas c){
+  c.rotate(90);
+  c.translate(0,-29);
+  super.onDraw(c);
+}
+
+http://stackoverflow.com/questions/631238/
+public boolean onTouchEvent(MotionEvent event){
+  xPos=event.getX();
+  yPos=event.getY();
+  float progress=(yPos - this.getTop()) / (this.getBottom() - this.getTop());
+  oOffset=this.getThumbOffset();
+  oProgress=this.getProgress();
+  Log.d("offset" + System.nanoTime(),new Integer(oOffset).toString());
+  Log.d("progress" + System.nanoTime(),new Integer(oProgress).toString());
+  float offset;
+  offset=progress * (this.getBottom() - this.getTop());
+  this.setThumbOffset((int)offset);
+  Log.d("offset_postsetprogress" + System.nanoTime(),new Integer(oOffset).toString());
+  Log.d("progress_postsetprogress" + System.nanoTime(),new Integer(oProgress).toString());
+  this.setProgress((int)(100 * event.getY() / this.getBottom()));
+  return true;
+}
+
+http://stackoverflow.com/questions/3853106/
+public ActionForward add(ActionMapping mapping, ActionForm form,
+   HttpServletRequest request, HttpServletResponse response)
+   throws Exception {
+
+  if (log.isDebugEnabled()) {
+   log.debug("Entering Master add method");
+  }
+
+  try {
+
+   cargoForm cargoForm = (cargoForm) form;
+   //System.out.println("ID" + cargoForm.getId());
+   cargo cargo = new cargo();
+   System.out.println("in cargo Action");
+   // copy customerform to model
+   cargoForm.reset(mapping, request);
+   BeanUtils.copyProperties(cargo, cargoForm);
+   cargoForm.reset(mapping, request);
+  // cargoForm.setInputParam("new");
+   // updateFormBean(mapping, request, cargoForm);
+
+  }
+
+  catch (Exception ex) {
+   ex.printStackTrace();
+   return mapping.findForward("failure");
+  }
+
+  return mapping.findForward("success1");
+ }
+
+
+http://stackoverflow.com/questions/3853106/
+public ActionForward save(ActionMapping mapping, ActionForm form,
+   HttpServletRequest request, HttpServletResponse response)
+   throws Exception {
+
+  SessionFactory sessionFactory=null;
+  Session session =null;
+  System.out.println("in cargo Action");
+  try{
+  sessionFactory = (SessionFactory) servlet
+    .getServletContext().getAttribute(HibernatePlugIn.KEY_NAME);  
+  session = sessionFactory.openSession();
+  Transaction tx = session.beginTransaction();
+
+  cargoForm carForm = (cargoForm) form;
+
+
+  cargo cargo = new cargo();
+
+  System.out.println("in cargo Action");
+
+  BeanUtils.copyProperties(cargo,carForm);
+  System.out.println("id"+ carForm.getId()); 
+  System.out.println("item id"+ carForm.getItemid()); 
+  Set itemset = carForm.getItemDtl();
+
+    System.out.println("size"+itemset.size()); 
+    Iterator iterator =itemset.iterator();   
+    while(iterator.hasNext()) { 
+     Item it = (Item)iterator.next();
+    System.out.println("name"+it.getItemName()); //log.debug("HERE");
+   it.setCargo(cargo); } 
+
+  cargo.setItemList(itemset);
+  System.out.println("size"+ itemset.size()); 
+  session.saveOrUpdate("cargo",cargo);
+  tx.commit();
+  }catch(Exception e){
+   e.printStackTrace();
+  }
+  return mapping.findForward("success");
+
+ }
+ 
+ 
+http://stackoverflow.com/questions/3853106/
+public ActionForward search(ActionMapping mapping, ActionForm form,
+   HttpServletRequest request, HttpServletResponse response)
+   throws Exception {
+  System.out.println("in cargo search Action");
+  SessionFactory sessionFactory = (SessionFactory) servlet
+    .getServletContext().getAttribute(HibernatePlugIn.KEY_NAME);
+  HttpSession session1 = request.getSession();
+  Session session = sessionFactory.openSession();
+  Transaction tx = session.beginTransaction();
+  cargoForm cargoform = (cargoForm) form;
+  // System.out.println("Name"+cargoForm.getName());
+  cargo cargo = new cargo();
+  System.out.println("in cargo search Action");
+  // copy customerform to model
+  BeanUtils.copyProperties(cargo, cargoform);
+  String name;
+  String status;
+  String createby;
+
+  name = cargo.getCname();
+  status = cargo.getStatus();
+  createby = cargo.getCreate();
+  System.out.println("Name..." + name);
+  System.out.println("status..." + status);
+  System.out.println("createby..." + createby);
+  try {
+   if ((name.equals("")) && (createby.equals(""))
+     && (status.equals("")))
+    return mapping.findForward("failure");
+   String SQL_QUERY = "from cargo c where c.cname=:name or c.status=:status or c.create=:createby";
+   Query query = session.createQuery(SQL_QUERY);
+   query.setParameter("name", name);
+   query.setParameter("status", status);
+   query.setParameter("createby", createby);
+   ArrayList al = new ArrayList();
+   for (Iterator i = query.iterate(); i.hasNext();) {
+    cargo cargo1 = (cargo) i.next();
+    al.add(cargo1);
+    System.out.println("Cargo ID is:" + cargo1.getId());
+   }
+   System.out.println("Cargo list is:" + al.size());
+   session1.setAttribute("clist", al);
+  } catch (Exception e) {
+   e.printStackTrace();
+   return mapping.findForward("failure");
+  }
+  System.out.println("search Cargo list is success");
+
+  return mapping.findForward("success");
+ }
+
+http://stackoverflow.com/questions/3853106/
+ public ActionForward edit(ActionMapping mapping, ActionForm form,
+   HttpServletRequest request, HttpServletResponse response)
+   throws Exception {
+  SessionFactory sessionFactory=null;
+  Session session =null;
+  if (log.isDebugEnabled()) {
+   log.debug("Entering Master Edit method");
+  }
+
+  try {
+   sessionFactory = (SessionFactory) servlet
+     .getServletContext().getAttribute(HibernatePlugIn.KEY_NAME);
+   session = sessionFactory.openSession();
+   Transaction transaction=session.beginTransaction();
+   cargoForm carForm = (cargoForm) form;
+   // System.out.println(carForm.getStatus());
+   // System.out.println(carForm.getCreate());
+   cargo cargo = new cargo();
+   BeanUtils.copyProperties(cargo, carForm);
+      System.out.println("In Cargo Edit "+cargo.getId());
+      String qstring = "from cargo c where c.id=:id";
+   Query query = session.createQuery(qstring);
+   query.setParameter("id", cargo.getId());
+   ArrayList all = new ArrayList();
+   cargo c = (cargo) query.iterate().next();
+
+   System.out.println("Edit Cargo list " + all.size()); 
+
+
+     Set purchaseArray = new HashSet();
+           System.out.println("Edit"+c.getItemList().size());
+           carForm.setItemDtl(purchaseArray);
+           BeanUtils.copyProperties(carForm,c);
+           // transaction.commit();
+            session.flush();
+  } catch (Exception e) {
+   e.printStackTrace();
+   return mapping.findForward("failure");
+  }
+
+  // return a forward to edit forward
+  System.out.println("Edit Cargo list is success");
+  return mapping.findForward("succ");
+ }
+
+
+http://stackoverflow.com/questions/3853106/
+public ActionForward delete(ActionMapping mapping, ActionForm form,
+   HttpServletRequest request, HttpServletResponse response)
+   throws Exception {
+
+  try {
+   SessionFactory sessionFactory = (SessionFactory) servlet
+     .getServletContext().getAttribute(HibernatePlugIn.KEY_NAME);
+   Session session = sessionFactory.openSession();
+   Transaction tx = session.beginTransaction();
+   cargoForm carForm = (cargoForm) form;
+   // System.out.println(carForm.getStatus());
+   // System.out.println(carForm.getCreate());
+   cargo cargo = new cargo();
+   BeanUtils.copyProperties(cargo, carForm);
+      System.out.println("In Cargo Delete "+cargo.getId());
+   //String qstring = "delete from cargo c where c.id=:id";
+   //Query query = session.createQuery(qstring);
+   session.delete("cargo",cargo);
+     // session.delete(cargo);
+     // session.flush();
+   //query.setParameter("id", cargo.getId());
+   //int row=query.executeUpdate();
+   //System.out.println("deleted row"+row);
+   tx.commit();
+
+  } catch (Exception e) {
+   e.printStackTrace();
+   return mapping.findForward("failure");
+  }
+  // return a forward to edit forward
+  System.out.println("Deleted success");
+  return mapping.findForward("succes");
+ }
+http://stackoverflow.com/questions/33088013/
+public BookDetails convertXml(String xml){
+
+            xstream.processAnnotations(Books.class);
+            xstream.processAnnotations(BookDetails.class);
+            xstream.addImplicitCollection(Books.class,"BookDetails");
+            return (BookDetails)xstream.fromXML(processOrderXML);
+}
+
+
+http://stackoverflow.com/questions/2112214/
+  Period p=new Period(this.startTime[dayIndex],this.endTime[dayIndex]);
+  long hours=p.getHours();
+  long minutes=p.getMinutes();
+  String format=String.format("%%0%dd",2);
+  return Long.toString(hours) + ":" + String.format(format,minutes);
+
+http://stackoverflow.com/questions/1118447/
+ public GeoPictureUploader(String name, String password) 
+{
+	this.name = name;
+	this.password = password;
+}
+
+
+http://stackoverflow.com/questions/1118447/
+public static void setServiceDomain(String domainName){
+  serviceDomain=domainName;
+}
+
+http://stackoverflow.com/questions/1118447/
+ public ReturnCode uploadPicture(String pictureFileName)
+    {
+        this.pictureFileName = pictureFileName;
+        File uploadFile = new File(pictureFileName); 
+
+        if (uploadFile.exists())
+            try 
+            { 
+                FileInputStream fileInputStream = new FileInputStream(uploadFile); 
+                URL connectURL = new URL(postUrl);
+                HttpURLConnection conn = (HttpURLConnection)connectURL.openConnection(); 
+
+                conn.setDoInput(true); 
+                conn.setDoOutput(true); 
+                conn.setUseCaches(false); 
+                conn.setRequestMethod("POST"); 
+
+                conn.setRequestProperty("User-Agent", "myGeodiary-V1");
+                conn.setRequestProperty("Connection","Keep-Alive"); 
+                conn.setRequestProperty("Content-Type","multipart/form-data;boundary="+boundary); 
+
+                conn.connect();
+
+                dataStream = new DataOutputStream(conn.getOutputStream()); 
+
+                writeFormField("login", name);
+                writeFormField("password", password);
+                writeFileField("photo1", pictureFileName, "image/jpg", fileInputStream);
+
+                // final closing boundary line
+                dataStream.writeBytes(twoHyphens + boundary + twoHyphens + CRLF); 
+
+                fileInputStream.close(); 
+                dataStream.flush(); 
+                dataStream.close();
+                dataStream = null;
+
+                String response = getResponse(conn);
+                int responseCode = conn.getResponseCode();
+
+                if (response.contains("uploaded successfully"))
+                    return ReturnCode.http201;
+                else 
+                    // for now assume bad name/password
+                    return ReturnCode.http401; 
+            } 
+            catch (MalformedURLException mue) { 
+                // Log.e(Tag, "error: " + mue.getMessage(), mue); 
+                System.out.println("GeoPictureUploader.uploadPicture: Malformed URL: " + mue.getMessage());
+                return ReturnCode.http400;
+            } 
+            catch (IOException ioe) { 
+                // Log.e(Tag, "error: " + ioe.getMessage(), ioe); 
+                System.out.println("GeoPictureUploader.uploadPicture: IOE: " + ioe.getMessage());
+                return ReturnCode.http500;
+            } 
+            catch (Exception e) { 
+                // Log.e(Tag, "error: " + ioe.getMessage(), ioe); 
+                System.out.println("GeoPictureUploader.uploadPicture: unknown: " + e.getMessage());
+                return ReturnCode.unknown;
+            } 
+        else 
+        {
+            return ReturnCode.noPicture;  
+        }
+    }
+	
+http://stackoverflow.com/questions/1118447/
+/** 
+ * @param conn
+ * @return
+ */
+private String getResponse(HttpURLConnection conn)
+{
+	try 
+	{
+		DataInputStream dis = new DataInputStream(conn.getInputStream()); 
+		byte []        data = new byte[1024];
+		int             len = dis.read(data, 0, 1024);
+
+		dis.close();
+		int responseCode = conn.getResponseCode();
+
+		if (len > 0)
+			return new String(data, 0, len);
+		else
+			return "";
+	}
+	catch(Exception e)
+	{
+		System.out.println("GeoPictureUploader: biffed it getting HTTPResponse");
+		//Log.e(TAG, "GeoPictureUploader: biffed it getting HTTPResponse");
+		return "";
+	}
+}
+
+http://stackoverflow.com/questions/1118447/
+/** 
+ * this mode of reading response no good either
+ */
+private String getResponseOrig(HttpURLConnection conn){
+  InputStream is=null;
+  try {
+    is=conn.getInputStream();
+    int ch;
+    StringBuffer sb=new StringBuffer();
+    while ((ch=is.read()) != -1) {
+      sb.append((char)ch);
+    }
+    return sb.toString();
+  }
+ catch (  Exception e) {
+    System.out.println("GeoPictureUploader: biffed it getting HTTPResponse");
+  }
+ finally {
+    try {
+      if (is != null)       is.close();
+    }
+ catch (    Exception e) {
+    }
+  }
+  return "";
+}
+
+http://stackoverflow.com/questions/1118447/
+/** 
+ * write one form field to dataSream
+ * @param fieldName
+ * @param fieldValue
+ */
+private void writeFormField(String fieldName,String fieldValue){
+  try {
+    dataStream.writeBytes(twoHyphens + boundary + CRLF);
+    dataStream.writeBytes("Content-Disposition: form-data; name=\"" + fieldName + "\""+ CRLF);
+    dataStream.writeBytes(CRLF);
+    dataStream.writeBytes(fieldValue);
+    dataStream.writeBytes(CRLF);
+  }
+ catch (  Exception e) {
+    System.out.println("GeoPictureUploader.writeFormField: got: " + e.getMessage());
+  }
+}
+
+http://stackoverflow.com/questions/1118447/
+/** 
+ * write one file field to dataSream
+ * @param fieldName - name of file field
+ * @param fieldValue - file name
+ * @param type - mime type
+ * @param fileInputStream - stream of bytes that get sent up
+ */
+private void writeFileField(String fieldName,String fieldValue,String type,FileInputStream fis){
+  try {
+    dataStream.writeBytes(twoHyphens + boundary + CRLF);
+    dataStream.writeBytes("Content-Disposition: form-data; name=\"" + fieldName + "\";filename=\""+ fieldValue+ "\""+ CRLF);
+    dataStream.writeBytes("Content-Type: " + type + CRLF);
+    dataStream.writeBytes(CRLF);
+    int bytesAvailable=fis.available();
+    int maxBufferSize=1024;
+    int bufferSize=Math.min(bytesAvailable,maxBufferSize);
+    byte[] buffer=new byte[bufferSize];
+    int bytesRead=fis.read(buffer,0,bufferSize);
+    while (bytesRead > 0) {
+      dataStream.write(buffer,0,bufferSize);
+      bytesAvailable=fis.available();
+      bufferSize=Math.min(bytesAvailable,maxBufferSize);
+      bytesRead=fis.read(buffer,0,bufferSize);
+    }
+    dataStream.writeBytes(CRLF);
+  }
+ catch (  Exception e) {
+    System.out.println("GeoPictureUploader.writeFormField: got: " + e.getMessage());
+  }
+}
+
+http://stackoverflow.com/questions/1118447/
+/**
+ * @param args
+ */
+public static void main(String[] args)
+{
+	if (args.length >= 0)
+	{
+		GeoPictureUploader gpu = new GeoPictureUploader("john", "notmyrealpassword");
+		String picName = args[0];
+
+		ReturnCode rc = gpu.uploadPicture(picName);
+		System.out.printf("done");
+	}
+}
+http://stackoverflow.com/questions/8746084/
+{
+  DateTimeFormatter FORMATTER=DateTimeFormat.forPattern("yyyy-MMM-dd");
+  DateTime dateTime=FORMATTER.parseDateTime("2005-nov-12");
+  LocalDate localDate=dateTime.toLocalDate();
+}
+
+http://stackoverflow.com/questions/3623546/
+@SuppressWarnings("unchecked")
+public static <A> A fromXML(Class c, File file) {
+    // Don't ever try to use DomDriver. They are VERY slow.
+    XStream xStream = new XStream();
+    InputStream inputStream = null;
+    Reader reader = null;
+
+    try {
+        inputStream = new java.io.FileInputStream(file);
+        reader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+        Object object = xStream.fromXML(reader);
+
+        if (c.isInstance(object)) {
+            return (A)object;
+        }
+    }
+    catch (Exception exp) {
+        log.error(null, exp);
+    }
+    finally {
+        if (false == close(reader)) {
+            return null;
+        }
+        if (false == close(inputStream)) {
+            return null;
+        }
+        reader = null;
+        inputStream = null;
+    }
+
+    return null;
+}
+
+
+
+
+http://stackoverflow.com/questions/643700/
+public void setId(int id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/643700/
+public void setName(String name){
+  this.name=name;
+}
+
+http://stackoverflow.com/questions/643700/
+public void setMainPart(Part mainPart){
+  this.mainPart=mainPart;
+}
+
+http://stackoverflow.com/questions/643700/
+public void setParts(List<Part> parts){
+  this.parts=parts;
+}
+
+http://stackoverflow.com/questions/1080766/
+private static SessionFactory buildSessionFactory(){
+  try {
+    return new Configuration().configure().buildSessionFactory();
+  }
+ catch (  Throwable ex) {
+    System.err.println("Initial SessionFactory creation failed." + ex);
+    throw new ExceptionInInitializerError(ex);
+  }
+}
+
+http://stackoverflow.com/questions/2237142/
+ public TestView(String firstName) {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
+
+http://stackoverflow.com/questions/14440011/
+private static void createXmlEmail(){
+  XStream xstream=new XStream(new DomDriver());
+  xstream.setMode(XStream.NO_REFERENCES);
+  xstream.alias("email",EmailPojo.class);
+  xstream.alias("recipient",Recipient.class);
+  EmailPojo ep=new EmailPojo();
+  List<Recipient> toRecipient=new ArrayList<Recipient>();
+  toRecipient.add(new Recipient("user1@somecompany.com"));
+  toRecipient.add(new Recipient("user2@somecompany.com"));
+  List<Recipient> ccRecipient=new ArrayList<Recipient>();
+  ccRecipient.add(new Recipient("user3@somecompany.com"));
+  ccRecipient.add(new Recipient("user4@somecompany.com"));
+  List<Recipient> bccRecipient=new ArrayList<Recipient>();
+  bccRecipient.add(new Recipient("user5@somecompany.com"));
+  bccRecipient.add(new Recipient("user6@somecompany.com"));
+  ep.setTo(toRecipient);
+  ep.setCc(ccRecipient);
+  ep.setBcc(bccRecipient);
+  ep.setSubject("subject test");
+  ep.setBody("body test");
+  String xml=xstream.toXML(ep);
+  System.out.println(xml);
+}
+
+http://stackoverflow.com/questions/14440011/
+public void setTo(List<Recipient> to){
+  this.to=to;
+}
+
+http://stackoverflow.com/questions/14440011/
+public void setCc(List<Recipient> cc){
+  this.cc=cc;
+}
+
+http://stackoverflow.com/questions/14440011/
+public void setBcc(List<Recipient> bcc){
+  this.bcc=bcc;
+}
+
+http://stackoverflow.com/questions/14440011/
+public void setSubject(String subject){
+  this.subject=subject;
+}
+
+http://stackoverflow.com/questions/14440011/
+public void setBody(String body){
+  this.body=body;
+}
+
+http://stackoverflow.com/questions/14440011/
+public Recipient(String recipient){
+  this.recipient=recipient;
+}
+
+http://stackoverflow.com/questions/14440011/
+public void setRecipient(String recipient){
+  this.recipient=recipient;
+}
+
+http://stackoverflow.com/questions/17871210/
+@Override 
+public Object fromString(String arg0){
+  Collection<Integer> collection=new ArrayList<Integer>();
+  String[] integerStrings=arg0.split(" ");
+  for (int i=0; i < integerStrings.length; i++) {
+    collection.add(Integer.valueOf(integerStrings[i]));
+  }
+  return collection;
+}
+
+http://stackoverflow.com/questions/17871210/
+@Override 
+public String toString(Object arg0){
+  List collection=(List)arg0;
+  StringBuffer sb=new StringBuffer();
+  boolean first=true;
+  for (  Object object : collection) {
+    if (first) {
+      first=false;
+    }
+ else {
+      sb.append(' ');
+    }
+    sb.append(object.toString());
+  }
+  return sb.toString();
+}
+
+http://stackoverflow.com/questions/7491195/
+  XStream xstream=new XStream(new DomDriver());
+  FileReader fin=new FileReader("path_to_file.xml");
+  BufferedReader br=new BufferedReader(fin);
+  String str=null;
+  while (br.ready()) {
+    str+=br.readLine() + "\n";
+  }
+
+http://stackoverflow.com/questions/1266527/
+/** 
+ * Called when the activity is first created. 
+ */
+@Override public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  DefaultHttpClient client=new DefaultHttpClient();
+  HttpGet method=new HttpGet("http://www.google.com");
+  try {
+    client.execute(method);
+    TextView t=(TextView)findViewById(R.id.lay);
+    t.setText("Ok");
+  }
+ catch (  ClientProtocolException e) {
+    TextView t=(TextView)findViewById(R.id.lay);
+    t.setText(e.getMessage());
+  }
+catch (  IOException e) {
+    TextView t=(TextView)findViewById(R.id.lay);
+    t.setText(e.getMessage());
+  }
+}
+
+http://stackoverflow.com/questions/1182620/
+public test(Context context) {
+	super(context);
+	setBackgroundColor(Color.RED);
+}
+
+http://stackoverflow.com/questions/1182620/
+public void adText(TextView tv){
+  this.tv=tv;
+  tv.setVisibility(tv.VISIBLE);
+}
+
+http://stackoverflow.com/questions/2937126/
+public DownloadFilePanel(final YFUser user , final String fileName){
+
+    final Element downloadIframe = RootPanel.get("__download").getElement();
+
+    VerticalPanel content = new VerticalPanel();
+    content.add(new Label("Download For this File : " + fileName));
+
+    Button button = new Button("Download");
+    button.addClickHandler(new ClickHandler(){
+        @Override
+        public void onClick(ClickEvent event) {
+            // i do not know what to do here
+    });
+            content.add(button);
+    initWidget(content);
+
+
+}
+
+
+http://stackoverflow.com/questions/3332212/
+public void testUserClassAndUsers() {
+        System.out.println("Testing Users and UserClasses...");
+
+        Session newSession = DatabaseFactory.getInstance().getSession();
+
+        System.out.println("1 - Creating UserClasses:");
+        Transaction t1 = newSession.beginTransaction();
+        UserClass uc1 = new UserClass();
+        uc1.setTitle("UserClass 1");
+        uc1.setPermissions("XYZ");
+        newSession.save(uc1);
+        t1.commit();
+
+        System.out.println("2 - Creating Users:");
+        Transaction t2 = newSession.beginTransaction();
+        User u1 = new User();
+        u1.setUserName("User 1");
+        u1.setPassword("Password 1");
+        u1.setBlocked(false);
+        u1.setUserClass(uc1);
+        newSession.save(u1);
+
+        User u2 = new User();
+        u2.setUserName("User 2");
+        u2.setPassword("Password 2");
+        u2.setBlocked(false);
+        u2.setUserClass(uc1);
+        newSession.save(u2);
+        t2.commit();
+
+        System.out.println("3 - Deleting UserClass (\"UserClass 1\"):");
+        Transaction t3 = newSession.beginTransaction();
+        newSession.delete(uc1);
+        t3.commit();
+
+        newSession.close();
+    }
+
+
+http://stackoverflow.com/questions/3332212/
+ public static void main(String[] args) {
+        Main instance = new Main();
+
+        instance.testUserClassAndUsers();
+    }
+
+http://stackoverflow.com/questions/8604244/
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+
+    // Initialize soap request + add parameters
+    SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+    request.addProperty("user", "user");
+    request.addProperty("passwort", "passwort");
+
+    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+            SoapEnvelope.VER11);
+    envelope.setOutputSoapObject(request);
+
+    // Make the soap call.
+    HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+    t = (TextView) findViewById(R.id.resultbox);
+    // this is the actual part that will call the webservice
+    try {
+        androidHttpTransport.call(SOAP_ACTION, envelope);
+        SoapObject result=(SoapObject)envelope.bodyIn;
+
+        //SoapObject result = (SoapObject) envelope.response();
+
+
+        if (result != null) {
+
+            XStream xstreams = new XStream(new DomDriver());
+            String text = result.getProperty(0).toString();
+            Testobjekt tob = (Testobjekt) xstreams.fromXML(text);
+            t = (TextView) findViewById(R.id.resultbox);        
+            t.setText(tob.getName());
+        }
+
+*/
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        t.setText("FEHLER");
+
+    }
+
+
+  }
+
+http://stackoverflow.com/questions/3313553/
+public static void getInstance(final AsyncCallback<Main> callback) {
+        GWT.runAsync(new RunAsyncCallback() {
+
+            @Override
+            public void onSuccess() {
+                if (instance == null) {
+                    instance = new Main();
+                }
+                callback.onSuccess(instance);
+            }
+
+            @Override
+            public void onFailure(Throwable reason) {
+                callback.onFailure(reason);
+            }
+        });
+    }
+
+http://stackoverflow.com/questions/3313553/
+private Main() {
+	DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.EM);
+	dockLayoutPanel.addNorth(new Label("North!"), 7);
+	dockLayoutPanel.addWest(new Label("West!"), 15);
+	dockLayoutPanel.add(new Label("Center! :D"));
+	initWidget(dockLayoutPanel);
+}
+
+http://stackoverflow.com/questions/522800/
+void updatecount() { 
+TextView t = (TextView)findViewById(R.id.topscore);
+t.setText("Score: 10 - Time: "+seconds+" seconds");
+t.postInvalidate();
+}
+
+http://stackoverflow.com/questions/522800/
+public void onCreate(Bundle sis) {
+  gametimer.schedule(new TimerTask() { public void run() {
+     seconds+=0.1; updatecount();
+} }, 100, 100);
+}
+
+
+http://stackoverflow.com/questions/9961480/
+{
+  PeriodFormatter hoursMinutesSeconds=new PeriodFormatterBuilder().appendHours().appendSuffix(" hour"," hours").appendSeparator(", "," and ").appendMinutes().appendSuffix(" minute"," minutes").appendSeparator(" and ").printZeroRarelyFirst().appendSeconds().appendSuffix(" second"," seconds").toFormatter();
+  System.out.println(hoursMinutesSeconds.print(new Period(0,0,0,500)));
+}
+
+http://stackoverflow.com/questions/ID=1372467/
+@Override public String serializedClass(Class type){
+  try {
+  }
+ catch (  Exception e) {
+  }
+  return super.serializedClass(type);
+}
+
+http://stackoverflow.com/questions/8109450/
+public String getDateFromDateTime(Date date,Boolean display) throws ParseException {
+  DateTimeFormatter dtFormatter;
+  if (display)   dtFormatter=DateTimeFormat.forPattern("MM/dd/yyyy");
+ else   dtFormatter=DateTimeFormat.forPattern("yyyy-MM-dd");
+  DateTime dt=new DateTime(date);
+  String myDate=dt.toString(dtFormatter);
+  System.out.println("OrderDisplayUtil.java:getDateFromDateTime(" + date + ", "+ display+ "): "+ "myDate = "+ myDate);
+  return myDate;
+}
+
+http://stackoverflow.com/questions/1523997/
+public TitledPanel(){
+  Element fieldset=DOM.createFieldSet();
+  legend=DOM.createLegend();
+  DOM.appendChild(fieldset,legend);
+  setElement(fieldset);
+}
+
+http://stackoverflow.com/questions/1523997/
+public TitledPanel(String title){
+  this();
+  setTitle(title);
+}
+
+http://stackoverflow.com/questions/1523997/
+@Override 
+public String getTitle(){
+  return DOM.getInnerHTML(legend);
+}
+
+http://stackoverflow.com/questions/1523997/
+@Override 
+public void setTitle(String html){
+  DOM.setInnerHTML(legend,html);
+}
+
+http://stackoverflow.com/questions/1523997/
+public void setContent(Widget content){
+  if (this.content != null) {
+    DOM.removeChild(getElement(),this.content.getElement());
+  }
+  this.content=content;
+  DOM.appendChild(getElement(),content.getElement());
+}
+
+http://stackoverflow.com/questions/3556392/
+public static void main(String... args){
+  SessionFactory sessionFact=new Configuration().configure().buildSessionFactory();
+  Session ses=sessionFact.openSession();
+  Transaction tx=ses.beginTransaction();
+  String bean="";
+  ses.save(bean);
+  tx.commit();
+  ses.close();
+}
+
+http://stackoverflow.com/questions/3138621/
+public void onClick(ClickEvent event) {
+    hp.setStyleName("background-GroupLbl");
+
+    if (event.getSource().equals(folder) || event.getSource().equals(lbl)) {
+
+     lblHandler.onGroupLabelSelect(this);
+ }
+}
+http://stackoverflow.com/questions/3138621/
+public void onMouseOut(MouseOutEvent event){
+  hp.removeStyleName("background-GroupLbl");
+}
+
+http://stackoverflow.com/questions/2768511/
+public HibernateInvocationHandler(Configuration config){
+  this.config=config;
+}
+
+http://stackoverflow.com/questions/2768511/
+public Object invoke(Object proxy, Method method, Object[] args)
+            throws Throwable {
+        if (false) proxy.hashCode();
+        System.out.println("Proxy for SessionFactory called");
+            synchronized(this) {
+                if (this.realSessionFactory == null){
+                    SessionFactory sf =null;
+                    try {
+                        System.out.println("Gonna BUILD one or die trying");
+
+                        sf=this.config.buildSessionFactory();
+                    } catch (RuntimeException e) {
+                        System.out.println(ErrorHandle.exceptionToString(e));
+                        log.error("SessionFactoryProxy",e);
+                        closeSessionFactory(sf);
+                        System.out.println("FAILED to build");
+                        sf=null;
+                    }
+                    if (sf==null) throw new RetainConfigDataAccessException("SessionFactory not available");
+                    this.realSessionFactory=sf;                     
+                }
+                return method.invoke(this.realSessionFactory, args);    
+        }
+
+    }
+
+http://stackoverflow.com/questions/3802893/
+{
+DateTimeZone BRAZIL = DateTimeZone.forID("America/Sao_Paulo");
+DateTime start = new DateTime(2013, 10, 20, 5, 0, 0, BRAZIL);
+DateTime end = new DateTime(2013, 10, 21, 13, 0, 0, BRAZIL);
+System.out.println(daysBetween(start.withTimeAtStartOfDay(),
+                               end.withTimeAtStartOfDay()).getDays());
+// prints 0
+System.out.println(daysBetween(start.toLocalDate(),
+                               end.toLocalDate()).getDays());
+}
+
+http://stackoverflow.com/questions/3802893/
+public static int getDaysBetween(DateTime earlier,DateTime later){
+  return (int)TimeUnit.MILLISECONDS.toDays(later.getMillis() - earlier.getMillis());
+}
+
+http://stackoverflow.com/questions/36881/
+{
+  TabSpec ts = mTabs.newTabSpec("tab");
+ts.setIndicator("TabTitle", iconResource);
+
+ts.setContent(new TabHost.TabContentFactory(
+{
+    public View createTabContent(String tag)
+    {
+    }            
+});
+mTabs.addTab(ts);
+mTabs.getTabWidget().removeAllViews();
+mTabs.clearAllTabs(true);
+setupTabs();
+}
+
+http://stackoverflow.com/questions/7471775/
+{
+  Instant now=new Instant(new Date().getTime());
+  Interval i2=new Interval(now,(ReadableInstant)null);
+  Interval i1=new Interval(now,(ReadableInstant)null);
+  boolean overlapping=i2.overlaps(i1);
+}
+
+http://stackoverflow.com/questions/1539885/
+public void onModuleLoad(){
+  RootPanel rootPanel=RootPanel.get();
+  this.panel=new VerticalPanel();
+  this.panel.setSize("100%","100%");
+  rootPanel.add(panel);
+  if (WITH_TABLE) {
+    loadTable();
+  }
+ else {
+    startUpdateTask();
+  }
+}
+
+http://stackoverflow.com/questions/1539885/
+private void startUpdateTask(){
+    this.timer = new Timer() {
+
+        @Override
+        public void run() {
+            GWTMemoryIssue.this.getTableData();
+
+        }
+    };
+    this.timer.scheduleRepeating(2000);
+}
+
+http://stackoverflow.com/questions/1539885/
+public void loadTable(){
+      Runnable onLoadCallback = new Runnable() {
+        public void run() {
+            GWTMemoryIssue.this.table = new Table(createTableData(), createTableOptions());
+            GWTMemoryIssue.this.table.setSize("100%", "100%");
+            GWTMemoryIssue.this.panel.add(GWTMemoryIssue.this.table);
+            GWTMemoryIssue.this.startUpdateTask();
+        }
+    };
+
+    VisualizationUtils.loadVisualizationApi(onLoadCallback, Table.PACKAGE);
+}
+
+http://stackoverflow.com/questions/738817/
+public View getView(int position,View convertView,ViewGroup parent){
+  ImageView imageView;
+  if (convertView == null) {
+    Context mContext=null;
+    imageView=new ImageView(mContext);
+    imageView.setLayoutParams(new GridView.LayoutParams(85,85));
+    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    imageView.setPadding(8,8,8,8);
+  }
+ else {
+    imageView=(ImageView)convertView;
+  }
+  int[] mThumbIds=null;
+  imageView.setImageResource(mThumbIds[position]);
+  return imageView;
+}
+
+http://stackoverflow.com/questions/3713829/
+@SuppressWarnings("null") 
+public static List<?> list(Class<?> className,int start,int limit,SearchFilter[] searchFilter){
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Transaction transaction = null; 
+
+    try {
+        transaction = session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(className);
+        criteria.setFirstResult(start);
+        criteria.setMaxResults(limit);
+
+        for(SearchFilter sf : searchFilter){
+            String[] values = sf.getValue();
+            if(values != null){
+                if(values.length == 1) {
+                    criteria.add(Restrictions.eq(sf.getField(), values[0]));
+                }else{
+                    criteria.add(Restrictions.in(sf.getField(), values));
+                }
+            }
+        }
+
+        List<?> Objects = criteria.list();
+        transaction.commit();
+
+        return Objects;
+    }catch (Exception e) {
+        transaction.rollback();
+        e.printStackTrace();
+    }finally{
+        session.close();
+    }
+
+    return null;
+}
+
+http://stackoverflow.com/questions/8321537/
+LocalDate getNearestDayOfWeek(LocalDate ld,String day){
+  LocalDate target=ld.dayOfWeek().setCopy(day);
+  if (ld.getDayOfWeek() > DateTimeConstants.SATURDAY) {
+    target=target.plusWeeks(1);
+  }
+  return target;
+}
+
+http://stackoverflow.com/questions/1791178/
+public ListToStringXStreamConverter(String alias){
+  super();
+  this.alias=alias;
+}
+
+http://stackoverflow.com/questions/1791178/
+@Override public void marshal(Object source,HierarchicalStreamWriter writer,MarshallingContext context){
+  @SuppressWarnings("unchecked") List<String> list=(List<String>)source;
+  for (  String string : list) {
+    writer.startNode(alias);
+    writer.setValue(string);
+    writer.endNode();
+  }
+}
+
+http://stackoverflow.com/questions/1791178/
+@Override public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context){
+  throw new UnsupportedOperationException("ListToStringXStreamConverter does not offer suport for unmarshal operation");
+}
+
+
+http://stackoverflow.com/questions/6825271/
+private ObjectContentConverter(XStream xStream){
+  this.xStream=xStream;
+}
+
+http://stackoverflow.com/questions/6825271/
+@Override public void marshal(Object source,HierarchicalStreamWriter writer,MarshallingContext context){
+  String className=WordUtils.uncapitalize(source.getClass().getSimpleName());
+  xStream.aliasField(className,Content.class,"objectContent");
+  xStream.marshal(source,writer);
+}
+
+http://stackoverflow.com/questions/3573479/
+public void setSessionFactory(final SessionFactory sessionFactory){
+  this.sessionFactory=sessionFactory;
+}
+
+http://stackoverflow.com/questions/3573479/
+public ID create(final T newInstance){
+  ID id=null;
+  final Session session=sessionFactory.openSession();
+  final Transaction tx=session.beginTransaction();
+  try {
+    id=(ID)session.save(newInstance);
+    tx.commit();
+    session.close();
+  }
+ catch (  final Exception e) {
+    if (tx != null) {
+      tx.rollback();
+    }
+    e.printStackTrace();
+  }
+ finally {
+    if (session.isOpen()) {
+      session.close();
+    }
+  }
+  return id;
+}
+
+http://stackoverflow.com/questions/3573479/
+public T read(final ID primaryKey){
+  T id=null;
+  final Session session=sessionFactory.openSession();
+  final Transaction tx=session.beginTransaction();
+  try {
+    id=(T)session.get("aaa",primaryKey);
+    tx.commit();
+    session.close();
+  }
+ catch (  final Exception e) {
+    if (tx != null) {
+      tx.rollback();
+    }
+    e.printStackTrace();
+  }
+ finally {
+    if (session.isOpen()) {
+      session.close();
+    }
+  }
+  return id;
+}
+
+http://stackoverflow.com/questions/3573479/
+public void update(final T transientObject){
+  final Session session=sessionFactory.openSession();
+  final Transaction tx=session.beginTransaction();
+  try {
+    session.saveOrUpdate(transientObject);
+    tx.commit();
+    session.close();
+  }
+ catch (  final Exception e) {
+    if (tx != null) {
+      tx.rollback();
+    }
+    e.printStackTrace();
+  }
+ finally {
+    if (session.isOpen()) {
+      session.close();
+    }
+  }
+}
+
+http://stackoverflow.com/questions/3573479/
+public void delete(final T persistentObject){
+  final Session session=sessionFactory.openSession();
+  final Transaction tx=session.beginTransaction();
+  try {
+    session.delete(persistentObject);
+    tx.commit();
+    session.close();
+  }
+ catch (  final Exception e) {
+    if (tx != null) {
+      tx.rollback();
+    }
+    e.printStackTrace();
+  }
+ finally {
+    if (session.isOpen()) {
+      session.close();
+    }
+  }
+}
+
+http://stackoverflow.com/questions/2531687/
+public JSONObject check(){
+  Session session=null;
+  JSONObject check=new JSONObject();
+  try {
+    SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+    session=sessionFactory.openSession();
+    String username=null;
+    boolean justusername=false;
+    if (justusername) {
+      String hquery="Select username from User user Where username = ? ";
+      Query query=session.createQuery(hquery);
+      query.setString(0,username);
+      String user=(String)query.uniqueResult();
+      if (user == null) {
+        check.put("indatabase","false");
+      }
+ else {
+        check.put("indatabase","true");
+      }
+      check.put("justusername",true);
+    }
+ else {
+      String hquery="Select username from User user Where username = :user and password = :pass ";
+      Query query=session.createQuery(hquery);
+      query.setString("user",username);
+      String password=null;
+      query.setString("pass",password);
+      String user=(String)query.uniqueResult();
+      if (user == null) {
+        check.put("indatabase",false);
+      }
+ else {
+        check.put("indatabase",true);
+      }
+      check.put("justusername",false);
+    }
+  }
+ catch (  Exception e) {
+    System.out.println(e.getMessage());
+  }
+ finally {
+    session.flush();
+    session.close();
+  }
+  return check;
+}
+
+http://stackoverflow.com/questions/151777/
+/** 
+ * Called when the activity is first created. 
+ */
+@Override public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  mTextView=new TextView(this);
+  if (savedInstanceState == null) {
+    mTextView.setText("Welcome to HelloAndroid!");
+  }
+ else {
+    mTextView.setText("Welcome back.");
+  }
+  setContentView(mTextView);
+}
+
+http://stackoverflow.com/questions/896889/
+/** 
+ * Called when the activity is first created. 
+ */
+@Override public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  LocationManager l=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+  List<String> li=l.getAllProviders();
+  for (Iterator<String> iterator=li.iterator(); iterator.hasNext(); ) {
+    String string=iterator.next();
+    Log.d("gps",string);
+  }
+  if (l.getLastKnownLocation("gps") == null)   Log.d("gps","null");
+}
+
+http://stackoverflow.com/questions/3299972/
+{
+  @SuppressWarnings("deprecation") 
+  Date past=new Date(110,5,20);
+  Date today=new Date(110,6,24);
+  int days=Days.daysBetween(new DateTime(past),new DateTime(today)).getDays();
+}
+
+http://stackoverflow.com/questions/7868105/
+DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+Date dt = formatter.parse("2011-10-23 12:00:00");
+LocalDateTime ldt = new DateTime(dt).withZone(DateTimeZone.UTC).toLocalDateTime();
+LOGGER.warn("Original date: " + ldt.toDateTime().toDate().toString());
+DateTime cvtldt = ldt.toDateTime(DateTimeZone.forID("-05:00"));
+LOGGER.warn("Converted date: " + cvtldt.toLocalDateTime().toDateTime().toDate().toString());
+
+
+http://stackoverflow.com/questions/2182950/
+public void setId(long id){
+  this.Id=id;
+}
+
+http://stackoverflow.com/questions/2182950/
+public void setXdn(long xdn){
+  this.xdn=xdn;
+}
+
+http://stackoverflow.com/questions/2182950/
+public void setDfn(long dfn){
+  this.dfn=dfn;
+}
+
+http://stackoverflow.com/questions/2182950/
+public void setAddress(String address){
+  this.address=address;
+}
+
+http://stackoverflow.com/questions/25098261/
+public void marshal(Object value,HierarchicalStreamWriter writer,MarshallingContext context){
+  Map<String,Integer> map=(Map<String,Integer>)value;
+  for (  Map.Entry<String,Integer> entry : map.entrySet()) {
+    writer.startNode(entry.getKey().toString());
+    writer.setValue(entry.getValue().toString());
+    writer.endNode();
+  }
+}
+
+http://stackoverflow.com/questions/25098261/
+public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context){
+  Map<String,Integer> map=new HashMap<String,Integer>();
+  while (reader.hasMoreChildren()) {
+    reader.moveDown();
+    map.put(reader.getNodeName(),new Integer(reader.getValue()));
+    reader.moveUp();
+  }
+  return map;
+}
+
+http://stackoverflow.com/questions/1791178/
+ public Test(String tag, String tag2) {
+        tags.add(tag); tags.add(tag2);
+        notags.add(tag); notags.add(tag2);
+    }
+	
+http://stackoverflow.com/questions/1791178/
+public static void main(String[] args) {
+        Test test = new Test("foo", "bar");
+        XStream xstream = new XStream();
+
+        ClassAliasingMapper mapper = new ClassAliasingMapper(xstream.getMapper());
+        mapper.addClassAlias("tag", String.class);
+        xstream.registerLocalConverter(
+            Test.class,
+            "tags",
+            new CollectionConverter(mapper)
+        );
+
+        System.out.println(xstream.toXML(test));
+    }
+http://stackoverflow.com/questions/34206426/
+@Override public Object unmarshal(HierarchicalStreamReader hierarchicalStreamReader,UnmarshallingContext unmarshallingContext){
+  Items items=new Items();
+  while (hierarchicalStreamReader.hasMoreChildren()) {
+    hierarchicalStreamReader.moveDown();
+    final String currentAttribute=hierarchicalStreamReader.getAttribute("name");
+    if ("id".equals(currentAttribute)) {
+      items.setId(hierarchicalStreamReader.getValue());
+    }
+ else     if ("first-name".equals(currentAttribute)) {
+      items.setFirstName(hierarchicalStreamReader.getValue());
+    }
+ else     if ("last-name".equals(currentAttribute)) {
+      items.setLastName(hierarchicalStreamReader.getValue());
+    }
+ else     if ("address".equals(currentAttribute)) {
+      items.setAddress(hierarchicalStreamReader.getValue());
+    }
+ else     if ("zip".equals(currentAttribute)) {
+      items.setZip(hierarchicalStreamReader.getValue());
+    }
+    hierarchicalStreamReader.moveUp();
+  }
+  return items;
+}
+
+http://stackoverflow.com/questions/34206426/
+public void setId(String id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/34206426/
+public void setFirstName(String firstName){
+  this.firstName=firstName;
+}
+
+http://stackoverflow.com/questions/34206426/
+public void setLastName(String lastName){
+  this.lastName=lastName;
+}
+
+http://stackoverflow.com/questions/34206426/
+public void setAddress(String address){
+  this.address=address;
+}
+
+http://stackoverflow.com/questions/34206426/
+public void setZip(String zip){
+  this.zip=zip;
+}
+
+http://stackoverflow.com/questions/1305388/
+public void captureImage(){
+  Camera camera=null;
+  Camera.Parameters params=camera.getParameters();
+  camera.setParameters(params);
+  PictureCallback jpgCallback=new PictureCallback(){
+    public void onPictureTaken(    byte[] data,    Camera camera){
+      Context c=null;
+      try {
+        Dialog d=new Dialog(c);
+        d.setContentView(0x7f030000);
+        BitmapFactory.Options opts=new BitmapFactory.Options();
+        Bitmap bitmap=BitmapFactory.decodeByteArray(data,0,data.length,opts);
+        TextView tv=(TextView)d.findViewById(0x7f050001);
+        ImageView i=(ImageView)d.findViewById(0x7f050000);
+        i.setImageBitmap(bitmap);
+        tv.setText("Hai" + data.length);
+        d.show();
+      }
+ catch (      Exception e) {
+        AlertDialog.Builder alert=new AlertDialog.Builder(c);
+        alert.setMessage("Exception1" + e.getMessage());
+        alert.create();
+        alert.show();
+      }
+    }
+  }
+;
+  camera.takePicture(null,null,jpgCallback);
+}
+
+http://stackoverflow.com/questions/1692017/
+public void onModuleLoad() {
+
+    AbsolutePanel boundaryPanel = new AbsolutePanel();
+    boundaryPanel.setPixelSize(1000, 1000);
+
+    final Diagram d = new Diagram(boundaryPanel);
+
+    Button b = new Button();
+    b.addClickListener(new ClickListener(){
+
+        @Override
+        public void onClick(Widget sender) {
+            SectionDecoration startDecoration = new SectionDecoration
+            (SectionDecoration.DECORATE_ARROW);
+                    SectionDecoration endDecoration = new SectionDecoration
+            (SectionDecoration.DECORATE_ARROW); 
+
+            Connector con = new Connector(10, 10, 10, 10, startDecoration, endDecoration);
+            con.showOnDiagram(d);
+        }
+
+    });
+
+    boundaryPanel.add(b, 10, 40);
+
+    RootPanel.get().add(boundaryPanel);
+}   
+
+http://stackoverflow.com/questions/3772945/
+public static int daysOfMonth(int year,int month){
+  DateTime dateTime=new DateTime(year,month,14,12,0,0,000);
+  return dateTime.dayOfMonth().getMaximumValue();
+}
+
+http://stackoverflow.com/questions/2284635/
+@Override 
+public HandlerRegistration addClickHandler(ClickHandler handler){
+  return addDomHandler(handler,ClickEvent.getType());
+}
+
+http://stackoverflow.com/questions/2284635/
+@Override 
+public void onClick(ClickEvent event){
+  doClick(getUniqueId());
+}
+
+http://stackoverflow.com/questions/2284635/
+
+  public ErrorNotificationWidget (String title, String message) {
+    uniqueId = DOM.createUniqueId();
+
+    initWidget(uiBinder.createAndBindUi(this));
+
+    this.getElement().setId(uniqueId);
+
+    this.addClickHandler(this);
+  }
+
+
+http://stackoverflow.com/questions/40922380/
+XStream xstream = new XStream(new StaxDriver());
+xstream.alias("data", DetList.class);
+xstream.alias("i", Details.class);
+String s = new String("<data>\n"
+           +"\t<i Name='asia' type='continent' id='11'></i>\n"
+           +"\t<i Name='africa' type='continent' id='12'></i>\n"
+           +"\t<i Name='japan' type='country' id='13'></i>\n"
+           +"</data>");
+System.out.println(s);
+DetList data = (DetList) xstream.fromXML(s);
+
+http://stackoverflow.com/questions/40922380/
+public void setDetlist(List<Details> detlist){
+  this.detlist=detlist;
+}
+
+http://stackoverflow.com/questions/1116268/
+ public static void main(final String[] args) {
+        File baseDir = new File("C:\\workspaces\\hobby");
+        DataImporter importer = new DataImporter();
+        Configuration config = importer.setupDb(baseDir);
+
+        if (config != null) {
+            importer.importContents(new File(baseDir, "people.xml"), config);
+        }
+    }
+	
+
+http://stackoverflow.com/questions/1116268/
+private void importContents(final File file,final Configuration config) throws MalformedURLException {
+  SessionFactory sessionFactory=config.buildSessionFactory();
+  Session session=sessionFactory.openSession();
+  Transaction tx=session.beginTransaction();
+  Session dom4jSession=session.getSession(EntityMode.DOM4J);
+  SAXReader saxReader=new SAXReader();
+  try {
+    Document document=saxReader.read(file);
+    List list=document.selectNodes("//Person");
+    Iterator iter=list.iterator();
+    while (iter.hasNext()) {
+      Object personObj=iter.next();
+    }
+    session.flush();
+    tx.commit();
+    session.close();
+  }
+ catch (  HibernateException e) {
+    e.printStackTrace();
+  }
+catch (  DocumentException e) {
+    e.printStackTrace();
+  }
+}
+
+http://stackoverflow.com/questions/1116268/
+private Configuration setupDb(final File baseDir) throws HibernateException {
+  Configuration cfg=new Configuration();
+  cfg.addFile(new File(baseDir,"name/seller/rich/hobby/Person.hbm.xml"));
+  cfg.addFile(new File(baseDir,"name/seller/rich/hobby/Hobby.hbm.xml"));
+  SchemaExport export=new SchemaExport(cfg);
+  export.setOutputFile("hobbyDB.txt");
+  export.execute(false,true,false,false);
+  return cfg;
+}
+
+http://stackoverflow.com/questions/6107965/
+@Override public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context){
+  while (reader.hasMoreChildren()) {
+    reader.moveDown();
+    String a;
+    if (reader.getNodeName().equals("a")) {
+      a=reader.getValue();
+    }
+ else     if (reader.getNodeName().equals("b")) {
+      Object b=(Object)context.convertAnother(reader,Object.class);
+    }
+ else     if (reader.getNodeName().equals("c")) {
+      a=reader.getValue();
+    }
+  }
+  return context;
+}
+
+http://stackoverflow.com/questions/2092883/
+public static String formatDuration(long start,long end){
+  Interval interval=new Interval(start,end);
+  return getPeriodFormatter().print(interval.toPeriod()).trim();
+}
+
+http://stackoverflow.com/questions/2092883/
+private static PeriodFormatter getPeriodFormatter(){
+  PeriodFormatter pf=new PeriodFormatterBuilder().printZeroRarelyFirst().appendYears().appendSuffix("y ","y ").appendMonths().appendSuffix("m","m ").appendDays().appendSuffix("d ","d ").appendHours().appendSuffix("h ","h ").appendMinutes().appendSuffix("m ","m ").appendSeconds().appendSuffix("s ","s ").toFormatter();
+  return pf;
+}
+
+http://stackoverflow.com/questions/1153920/
+public void onCreate(Bundle icicle){
+  super.onCreate(icicle);
+  setContentView(R.layout.main);
+  MapView myMapView=(MapView)findViewById(R.id.lay);
+  MapController mapController=myMapView.getController();
+  List<Overlay> overlays=myMapView.getOverlays();
+  MyLocationOverlay myLocationOverlay=new MyLocationOverlay(this,myMapView);
+  overlays.add(myLocationOverlay);
+  myLocationOverlay.enableMyLocation();
+}
+
+http://stackoverflow.com/questions/1188346/
+@Override protected void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.media_preview);
+  mPreview=(SurfaceView)findViewById(R.id.myImage);
+  btnPlay=(Button)findViewById(100);
+  btnPause=(Button)findViewById(101);
+  btnReset=(Button)findViewById(102);
+  btnStop=(Button)findViewById(103);
+  getPathFromParentDialog();
+  btnPlay.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      playVideo();
+    }
+  }
+);
+  btnPause.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mp != null) {
+        mp.pause();
+      }
+    }
+  }
+);
+  btnReset.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mp != null) {
+        mp.seekTo(0);
+      }
+    }
+  }
+);
+  btnStop.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mp != null) {
+        mp.stop();
+        mp.release();
+      }
+    }
+  }
+);
+  getWindow().setFormat(PixelFormat.TRANSPARENT);
+  holder=mPreview.getHolder();
+  holder.addCallback(this);
+  holder.setFixedSize(400,300);
+}
+
+http://stackoverflow.com/questions/1188346/
+@Override protected void onResume(){
+  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+  super.onResume();
+}
+
+http://stackoverflow.com/questions/1188346/
+@Override public boolean onError(MediaPlayer mp,int what,int extra){
+  if (mp != null) {
+    mp.stop();
+    mp.release();
+  }
+  return false;
+}
+
+http://stackoverflow.com/questions/1188346/
+private void playVideo(){
+  try {
+    mp=new MediaPlayer();
+    mp.setOnErrorListener(this);
+    mp.setOnBufferingUpdateListener(this);
+    mp.setOnCompletionListener(this);
+    mp.setOnPreparedListener(this);
+    mp.setAudioStreamType(2);
+    mp.setDisplay(mPreview.getHolder());
+    Runnable r=new Runnable(){
+      @Override public void run(){
+        try {
+          setDataSource(mPath);
+        }
+ catch (        Exception ex) {
+          Log.e(TAG,ex.getMessage());
+        }
+        try {
+          mp.prepare();
+          Log.v(TAG,"Duration: ===> " + mp.getDuration());
+        }
+ catch (        IllegalStateException e) {
+          e.printStackTrace();
+        }
+catch (        IOException e) {
+          e.printStackTrace();
+          Log.e(TAG,e.getMessage());
+        }
+        mp.start();
+      }
+    }
+;
+    new Thread(r).start();
+  }
+ catch (  Exception ex) {
+    String sDummy=ex.toString();
+    if (mp != null) {
+      mp.stop();
+      mp.release();
+    }
+  }
+}
+
+http://stackoverflow.com/questions/1188346/
+private void setDataSource(String path) throws IOException {
+  if (!URLUtil.isNetworkUrl(mPath)) {
+    mp.setDataSource(mPath);
+  }
+ else {
+    URL url=new URL(mPath);
+    URLConnection cn=url.openConnection();
+    cn.connect();
+    InputStream stream=cn.getInputStream();
+    if (stream == null) {
+      throw new RuntimeException("stream is null");
+    }
+    File fileTemp=File.createTempFile("mediaplayerTmp","dat");
+    String tempPath=fileTemp.getAbsolutePath();
+    FileOutputStream out=new FileOutputStream(fileTemp);
+    byte buf[]=new byte[128];
+    do {
+      int numRead=stream.read(buf);
+      if (numRead <= 0) {
+        break;
+      }
+      out.write(buf,0,numRead);
+    }
+ while (true);
+    mp.setDataSource(tempPath);
+    try {
+      stream.close();
+    }
+ catch (    Exception ex) {
+      String sDummy=ex.toString();
+    }
+  }
+}
+
+http://stackoverflow.com/questions/1188346/
+private void getPathFromParentDialog(){
+  Intent intent=getIntent();
+  mPath=intent.getExtras().getString("Path");
+}
+
+http://stackoverflow.com/questions/2279782/
+  final String filename=UUID.randomUUID().toString() + ".txt";
+  RequestBuilder rb=new RequestBuilder(RequestBuilder.POST,"http://localhost/upload");
+  Object selected;
+  rb.setRequestData("aaa");
+  rb.setHeader("Content-Type","application/x-www-form-urlencodeddata");
+  rb.setCallback(new RequestCallback(){
+    @Override public void onResponseReceived(    Request request,    Response response){
+    }
+    @Override public void onError(    Request request,    Throwable exception){
+      exception.printStackTrace();
+    }
+  }
+);
+  try {
+    rb.send();
+  }
+ catch (  RequestException e) {
+    e.printStackTrace();
+  }
+
+http://stackoverflow.com/questions/2404359/
+/** 
+ * This is the entry point method.
+ */
+public void onModuleLoad() {
+
+    JsonpRequestBuilder requestBuilder = new JsonpRequestBuilder();
+    // requestBuilder.setTimeout(10000);
+    requestBuilder.requestObject(SERVER_URL, new Jazz10RequestCallback());
+
+}
+
+http://stackoverflow.com/questions/2404359/
+@Override public void onFailure(Throwable caught){
+  Window.alert("Failed to send the message: " + caught.getMessage());
+}
+
+http://stackoverflow.com/questions/2404359/
+@Override public void onSuccess(Article result){
+  Window.alert(result.toString());
+}
+
+http://stackoverflow.com/questions/520902/
+public HibernateUserDAO() {
+        AnnotationConfiguration annotConf = new AnnotationConfiguration();
+        annotConf.addAnnotatedClass(User.class);
+        annotConf.configure();
+        // The line below generates the exception!
+        sessionFactory = annotConf.buildSessionFactory();
+    }
+
+http://stackoverflow.com/questions/520902/
+public void store(User user){
+  Session session=sessionFactory.openSession();
+  Transaction tx=session.getTransaction();
+  try {
+    tx.begin();
+    session.saveOrUpdate(user);
+    tx.commit();
+  }
+ catch (  RuntimeException e) {
+    tx.rollback();
+    throw e;
+  }
+ finally {
+    session.close();
+  }
+}
+
+http://stackoverflow.com/questions/1205820/
+public HibernateUtils(){
+  this.sessionFactory=new AnnotationConfiguration().configure().buildSessionFactory();
+}
+
+http://stackoverflow.com/questions/1205820/
+public HibernateUtils(SessionFactory sessionFactory){
+  this.sessionFactory=sessionFactory;
+}
+
+http://stackoverflow.com/questions/1205820/
+/**
+ *
+ * this is the function that return a session.So i'm free to implements any type of session in here.
+ */
+public Session requestSession() {
+//        if (session != null || session.isOpen()) {
+//            return session;
+//        } else {
+        session = sessionFactory.openSession();
+
+//        }
+    return session;
+  }
+
+http://stackoverflow.com/questions/4540144/
+
+  String currentDate;
+  SimpleDateFormat myFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm");
+  Date date1=null;
+  DateTime dt;
+  currentDate="27/12/2010 11:29";
+  try {
+    date1=myFormat.parse(currentDate);
+  }
+ catch (  ParseException ex) {
+    ex.printStackTrace();
+  }
+  dt=new DateTime(date1);
+  dt.plusMinutes(30);
+
+
+http://stackoverflow.com/questions/1200688/
+{
+  HttpHost target=new HttpHost("google.com",80);
+  HttpGet get=new HttpGet("/");
+  String result=null;
+  HttpEntity entity=null;
+  HttpClient client=new DefaultHttpClient();
+  try {
+    HttpResponse response=client.execute(target,get);
+    entity=response.getEntity();
+    result=EntityUtils.toString(entity);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    if (entity != null) {
+    }
+    try {
+      entity.consumeContent();
+    }
+ catch (    IOException e) {
+    }
+  }
+  return result;
+}
+
+http://stackoverflow.com/questions/20331163/
+String dateTime = "11/15/2013 08:00:00";
+// Format for input
+DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm:ss");
+// Parsing the date
+DateTime jodatime = dtf.parseDateTime(dateTime);
+// Format for output
+DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM/dd/yyyy");
+// Printing the date
+System.out.println(dtfOut.print(jodatime));
+
+http://stackoverflow.com/questions/6810856/
+public TypedString(String type, String value) {
+        this.type = type;
+        this.value = value;
+    }
+
+http://stackoverflow.com/questions/1738530/
+public void main(String arg[]){
+  RequestBuilder rb=new RequestBuilder(RequestBuilder.GET,"http://myweb.com/test.php?id=65472");
+  try {
+    rb.sendRequest(null,new RequestCallback(){
+      public void onError1(      final Request request,      final Throwable exception){
+        Window.alert(exception.getMessage());
+      }
+      public void onResponseReceived1(      final Request request,      final Response response){
+        GWT.log("response: (" + response.getText() + ")",null);
+      }
+      @Override public void onResponseReceived(      Request request,      Response response){
+      }
+      @Override public void onError(      Request request,      Throwable exception){
+      }
+    }
+);
+  }
+ catch (  final Exception e) {
+    Window.alert(e.getMessage());
+  }
+}
+
+http://stackoverflow.com/questions/1325576/
+public TextProgressBar(Context context, AttributeSet attrs) {
+	super(context, attrs);
+	((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.text_progress_bar, this, true);
+	setGravity(Gravity.CENTER);
+}
+
+
+http://stackoverflow.com/questions/1325576/
+public TextProgressBar(Context context) {
+	this(context,null);
+}
+	
+http://stackoverflow.com/questions/2483024/
+/** 
+ * This is the entry point method.
+ */
+public void onModuleLoad(){
+  clearables=new ArrayList();
+  initDockPanel();
+  panel.add(buildActionPanel(),DockPanel.SOUTH);
+  panel.add(buildPizzaTypePanel(),DockPanel.WEST);
+  panel.add(buildToppingPanel(),DockPanel.EAST);
+  RootPanel.get("slicr").add(panel);
+}
+
+http://stackoverflow.com/questions/2483024/
+private void initDockPanel(){
+  panel=new DockPanel();
+  panel.setBorderWidth(1);
+  panel.setSpacing(5);
+}
+
+http://stackoverflow.com/questions/2483024/
+public HorizontalPanel buildActionPanel(){
+  HorizontalPanel actions=new HorizontalPanel();
+  actions.setSpacing(10);
+  Button clear=new Button("Clear");
+  clear.addClickListener(new ClearClickListener());
+  Button newPizza=new Button("Another Pizza");
+  Button submitOrder=new Button("Submit");
+  actions.add(clear);
+  actions.add(newPizza);
+  actions.add(submitOrder);
+  return actions;
+}
+
+http://stackoverflow.com/questions/2483024/
+private VerticalPanel buildPizzaTypePanel(){
+  VerticalPanel pizzaTypes=new VerticalPanel();
+  HTML label=new HTML("<h2>Pizza</h2>");
+  pizzaTypes.add(label);
+  for (int i=0; i < PIZZA_TYPES.length; i++) {
+    RadioButton radio=new RadioButton("pizzaGroup",PIZZA_TYPES[i]);
+    clearables.add(radio);
+    pizzaTypes.add(radio);
+  }
+  return pizzaTypes;
+}
+
+http://stackoverflow.com/questions/2483024/
+private VerticalPanel buildToppingPanel(){
+  VerticalPanel toppings=new VerticalPanel();
+  toppings.add(new HTML("<h2>Toppings</h2>"));
+  Grid topGrid=new Grid(TOPPINGS.length + 1,3);
+  topGrid.setText(0,0,"Topping");
+  topGrid.setText(0,1,"Left");
+  topGrid.setText(0,2,"Right");
+  for (int i=0; i < TOPPINGS.length; i++) {
+    Button button=new Button(TOPPINGS[i]);
+    CheckBox leftCheckBox=new CheckBox();
+    CheckBox rightCheckBox=new CheckBox();
+    clearables.add(leftCheckBox);
+    clearables.add(rightCheckBox);
+    button.addClickListener(new ToppingButtonListener(leftCheckBox,rightCheckBox));
+    topGrid.setWidget(i + 1,0,button);
+    topGrid.setWidget(i + 1,1,leftCheckBox);
+    topGrid.setWidget(i + 1,2,rightCheckBox);
+  }
+  toppings.add(topGrid);
+  return toppings;
+}
+
+http://stackoverflow.com/questions/2483024/
+public void onClick(Widget sender){
+  boolean unchecked=!cb1.isChecked() && !cb2.isChecked();
+  cb1.setChecked(unchecked);
+  cb2.setChecked(unchecked);
+}
+
+http://stackoverflow.com/questions/2483024/
+public ToppingButtonListener(CheckBox cb1,CheckBox cb2){
+  this.cb1=cb1;
+  this.cb2=cb2;
+}
+
+http://stackoverflow.com/questions/2483024/
+public void onClick(Widget sender){
+  boolean unchecked=!cb1.isChecked() && !cb2.isChecked();
+  cb1.setChecked(unchecked);
+  cb2.setChecked(unchecked);
+}
+
+http://stackoverflow.com/questions/23816525/
+@Override public void marshal(Object source,HierarchicalStreamWriter writer,MarshallingContext context){
+  Map<String,String> map=(Map<String,String>)source;
+  for (  Map.Entry<String,String> entry : map.entrySet()) {
+    writer.addAttribute(entry.getKey(),entry.getValue().toString());
+  }
+}
+
+http://stackoverflow.com/questions/23816525/
+@Override public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context){
+  Map<String,String> map=new HashMap<String,String>();
+  for (int i=0; i < reader.getAttributeCount(); i++) {
+    String key=reader.getAttributeName(i);
+    String value=reader.getAttribute(key);
+    map.put(key,value);
+  }
+  return map;
+}
+
+http://stackoverflow.com/questions/4346254/
+public GreetingServiceImpl ()
+    {
+         gileadHibernateUtil.setSessionFactory(com.BiddingSystem.server.HibernateUtil.getSessionFactory());
+
+                PersistentBeanManager persistentBeanManager = new PersistentBeanManager();
+                persistentBeanManager.setPersistenceUtil(gileadHibernateUtil);
+                persistentBeanManager.setProxyStore(new StatelessProxyStore());
+
+                setBeanManager(persistentBeanManager);
+    }
+
+http://stackoverflow.com/questions/4346254/
+public String greetServer(String S){
+  Session session=gileadHibernateUtil.getSessionFactory().openSession();
+  Transaction tr=session.beginTransaction();
+  session.save(S);
+  tr.commit();
+  session.close();
+  return S;
+}
+
+
+http://stackoverflow.com/questions/1048739/
+private void init(Context context)
+{
+    setFocusable(true);
+    mRecording = false;
+    fileRW = new FileReaderWriter();
+    frameCount = 0;
+    if(mCamera == null)
+    {
+        mCamera = Camera.open();
+    }
+    Parameters parameters = mCamera.getParameters();
+    parameters.setPictureFormat(PixelFormat.JPEG);
+    mCamera.setParameters(parameters);
+    try {
+        mCamera.setPreviewDisplay(surfaceHolder);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    mCamera.startPreview();
+
+}
+
+http://stackoverflow.com/questions/1327229/
+{
+  final DateTimeFormatter df=DateTimeFormat.forPattern("EEE MMM dd HH:mm:ss 'GMT'Z yyyy");
+  final DateTime dateTime=df.withOffsetParsed().parseDateTime("Mon Aug 24 12:36:46 GMT+1000 2009");
+  System.out.println("dateTime = " + dateTime);
+}
+
+http://stackoverflow.com/questions/3754253/
+protected SessionFactory getSessionFactory(){
+  try {
+    return (SessionFactory)new InitialContext().lookup("java:/hibernate/SessionFactory");
+  }
+ catch (  Exception e) {
+    log.error("Could not locate SessionFactory in JNDI",e);
+    throw new IllegalStateException("Could not locate SessionFactory in JNDI");
+  }
+}
+
+http://stackoverflow.com/questions/3754253/
+public void persist(){
+  log.debug("persisting Empleados instance");
+  try {
+    sessionFactory.getCurrentSession().persist("aa");
+    log.debug("persist successful");
+  }
+ catch (  RuntimeException re) {
+    log.error("persist failed",re);
+    throw re;
+  }
+}
+
+http://stackoverflow.com/questions/3754253/
+public void attachDirty(){
+  log.debug("attaching dirty Empleados instance");
+  try {
+    sessionFactory.getCurrentSession().saveOrUpdate("aa");
+    log.debug("attach successful");
+  }
+ catch (  RuntimeException re) {
+    log.error("attach failed",re);
+    throw re;
+  }
+}
+
+http://stackoverflow.com/questions/3754253/
+public void attachClean(){
+  log.debug("attaching clean Empleados instance");
+  try {
+    sessionFactory.getCurrentSession().lock("aa",sessionFactory,null);
+    log.debug("attach successful");
+  }
+ catch (  RuntimeException re) {
+    log.error("attach failed",re);
+    throw re;
+  }
+}
+
+http://stackoverflow.com/questions/3754253/
+public void delete(){
+  log.debug("deleting Empleados instance");
+  try {
+    sessionFactory.getCurrentSession().delete("aa");
+    log.debug("delete successful");
+  }
+ catch (  RuntimeException re) {
+    log.error("delete failed",re);
+    throw re;
+  }
+}
+
+http://stackoverflow.com/questions/3754253/
+public List findByExample(){
+  log.debug("finding Empleados instance by example");
+  try {
+    Object instance=null;
+    List results=sessionFactory.getCurrentSession().createCriteria("com.hibernate.Empleados").add(Example.create(instance)).list();
+    log.debug("find by example successful, result size: " + results.size());
+    return results;
+  }
+ catch (  RuntimeException re) {
+    log.error("find by example failed",re);
+    throw re;
+  }
+}
+
+http://stackoverflow.com/questions/2822667/
+public String myMethod(String s){
+  File f=new File("/excelTestFile.xls");
+  String filename=f.getName();
+  int length=0;
+  try {
+    HttpServletResponse resp=getThreadLocalResponse();
+    ServletOutputStream op=resp.getOutputStream();
+    ServletContext context=getServletConfig().getServletContext();
+    resp.setContentType("application/octet-stream");
+    resp.setContentLength((int)f.length());
+    resp.setHeader("Content-Disposition","attachment; filename*=\"utf-8''" + filename + "");
+    byte[] bbuf=new byte[1024];
+    DataInputStream in=new DataInputStream(new FileInputStream(f));
+    while ((in != null) && ((length=in.read(bbuf)) != -1)) {
+      op.write(bbuf,0,length);
+    }
+    in.close();
+    op.flush();
+    op.close();
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+  return "Server says: " + filename;
+}
+
+http://stackoverflow.com/questions/4057816/
+final String string_from_3rd_party = "GMT+08:00";
+// Works for standard Java TimeZone!
+System.out.println(TimeZone.getTimeZone(string_from_3rd_party));
+// Exception in thread "main" java.lang.IllegalArgumentException: The datetime zone id is not recognised: GMT+08:00
+System.out.println(DateTimeZone.forID(string_from_3rd_party));
+
+
+http://stackoverflow.com/questions/2724147/
+public static Session getSession() throws HibernateException {
+  Session session=(Session)threadLocal.get();
+  if (session == null || !session.isOpen()) {
+    if (sessionFactory == null) {
+    }
+    session=(sessionFactory != null) ? sessionFactory.openSession() : null;
+    threadLocal.set(session);
+  }
+  return session;
+}
+
+http://stackoverflow.com/questions/41452661/
+  DateTime dt4=new DateTime("2017-01-01T10:52:07.656-10:00");
+  System.out.println("Given Date:" + dt4);
+  DateTimeFormatter fmt=DateTimeFormat.forPattern("MM/DD/YYYY");
+  System.out.println("Given Date After Date format: " + fmt.print(dt4));
+  DateTime previousDay=dt4.minusDays(1);
+  System.out.println("Previous Day: " + previousDay);
+  System.out.println("Previous Date After Date format: " + fmt.print(previousDay));
+
+
+http://stackoverflow.com/questions/2669065/
+public Scroller(){
+  scroller=new FlowPanel();
+  e=scroller.getElement();
+}
+
+http://stackoverflow.com/questions/2669065/
+public void scrollTo(int position,int milliseconds){
+  int scrollStart=e.getOffsetLeft();
+  int scrollStop=position;
+  GWT.log("ScrollStart: " + scrollStart + " scrollStop: "+ scrollStop);
+  run(milliseconds);
+}
+
+http://stackoverflow.com/questions/2669065/
+ @Override
+protected void onUpdate(double progress) {
+	double position = scrollStart + (progress * (scrollStop - scrollStart));
+	e.getStyle().setLeft(position, Style.Unit.PX);
+}
+
+http://stackoverflow.com/questions/3954392/
+private void rewriteLinksIterative(){
+  ArrayList links=new ArrayList();
+  putElementLinkIDsInList(Document.get().getBody(),links);
+  for (int i=0; i < links.size(); i++) {
+    Element elt=DOM.getElementById((String)links.get(i));
+    rewriteLink(elt,"www.example.com");
+  }
+}
+
+http://stackoverflow.com/questions/3954392/
+/** 
+ * Block all accesses out of the website that don't match 'sitename'
+ * @param element An anchor link element
+ * @param sitename name of the website to check. e.g. "www.example.com"
+ */
+private void rewriteLink(Element element,String sitename){
+  String href=DOM.getElementProperty(element,"href");
+  if (null == href) {
+    return;
+  }
+  if (href.startsWith("http://") && !href.startsWith("http://" + sitename + "/")) {
+    DOM.setElementProperty(element,"href","http://" + sitename + "/Blocked.html");
+  }
+}
+
+http://stackoverflow.com/questions/7608007/
+public MyConverter(Mapper mapper,ReflectionProvider reflectionProvider,Class<?> clazz,Map<String,String> attributes){
+  super();
+  this.mapper=mapper;
+  this.reflectionProvider=reflectionProvider;
+  this.attributes=attributes;
+  this.clazz=clazz;
+}
+
+http://stackoverflow.com/questions/7608007/
+@Override public void marshal(Object value,HierarchicalStreamWriter writer,MarshallingContext context){
+  for (  String key : attributes.keySet()) {
+    writer.addAttribute(key,attributes.get(key));
+  }
+  Converter converter=new ReflectionConverter(mapper,reflectionProvider);
+  context.convertAnother(p,converter);
+}
+
+http://stackoverflow.com/questions/9202872/
+
+  ArrayList<DateTime> monthStarts=new ArrayList<DateTime>();
+  int firstYear=0;
+  int lastYear=0;
+  for (int y=firstYear; y <= lastYear; y++) {
+    for (int m=1; m <= 12; m++) {
+      monthStarts.add(new DateTime(y + "-" + m+ "-01"));
+    }
+  }
+
+
+http://stackoverflow.com/questions/5451152/
+MutableDateTime now = new MutableDateTime();
+now.setHourOfDay(2);
+now.setMinuteOfHour(0);
+now.setSecondOfMinute(0);
+now.setMillisOfSecond(0);
+DateTime myDate = now.toDateTime();
+
+http://stackoverflow.com/questions/2013169/
+public StackNavigator() {
+	initWidget(uiBinder.createAndBindUi(this));
+}
+
+http://stackoverflow.com/questions/4323066/
+public static boolean registerEvent(){
+  SessionFactory sf=HibernateUtil.getSessionFactory();
+  Transaction t=null;
+  try {
+    Session s=sf.openSession();
+    t=s.beginTransaction();
+    s.persist("aa");
+    t.commit();
+    return true;
+  }
+ catch (  Exception ex) {
+    System.err.println("Error -->" + ex.getMessage());
+    if (t != null)     t.rollback();
+    return false;
+  }
+}
+
+http://stackoverflow.com/questions/982386/
+public MyAdapter(Context context) {
+	this.context = context;
+}
+
+http://stackoverflow.com/questions/982386/
+public View getView(int position,View convertView,ViewGroup parent){
+  TextView tv;
+  if (convertView == null) {
+    tv=new TextView(context);
+    tv.setLayoutParams(new GridView.LayoutParams(85,85));
+  }
+ else {
+    tv=(TextView)convertView;
+  }
+  tv.setText(texts[position]);
+  return tv;
+}
+
+http://stackoverflow.com/questions/1714300/
+public static void main(String[] args) {                
+	DateTimeFormatter timeParser = ISODateTimeFormat.timeParser();
+	TimeZone timeZone = TimeZone.getDefault();
+	System.out.println(timeZone.getID()); // "Europe/London"
+	System.out.println(timeZone.getDisplayName()); // "Greenwich Mean Time"
+
+	DateTimeZone defaultTimeZone = DateTimeZone.getDefault();
+	System.out.println(defaultTimeZone.getID()); //"Europe/London"
+	System.out.println(defaultTimeZone.getName(0L)); //"British Summer Time"
+
+	DateTime currentTime = new DateTime();
+	DateTimeZone currentZone = currentTime.getZone();
+	System.out.println(currentZone.getID()); //"Europe/London"
+	System.out.println(currentZone.getName(0L)); //"British Summer Time"            
+}
+
+http://stackoverflow.com/questions/1254832/
+@Override 
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);     
+	setContentView(R.layout.sbooks_search); 
+
+	mTextSearch = (EditText)findViewById(R.id.edit_search);     
+	Button searchButton = (Button)findViewById(R.id.btn_search);        
+
+	searchButton.setOnClickListener(new View.OnClickListener(){
+		public void onClick(View v){                
+			Intent data = new Intent();             
+			data.putExtra(SBooksDbAdapter.KEY_TITLE_RAW, mTextSearch.getText().toString());         
+			setResult(RESULT_OK, data);
+			finish();
+		}
+	});
+}   
+
+http://stackoverflow.com/questions/1254832/
+@Override 
+protected void onSaveInstanceState(Bundle outState){
+  super.onSaveInstanceState(outState);
+}
+
+http://stackoverflow.com/questions/16461361/
+{
+  DateTime dateTime=new DateTime(date);
+  dateTime=dateTime.plusDays(1);
+}
+
+http://stackoverflow.com/questions/9598675/
+{
+  final DateTime date1=dtf.parseDateTime("1979-04-29");
+  final DateTime date2=dtf.parseDateTime("1979-05-12");
+  final DateTime date3=dtf.parseDateTime("1979-04-02");
+  final DateTime date4=dtf.parseDateTime("1979-04-15");
+  System.err.println(date1.toString());
+  System.err.println(date2.toString());
+  System.err.println(date3.toString());
+  System.err.println(date4.toString());
+}
+
+http://stackoverflow.com/questions/3182759/
+public void setArticleId(int articleId){
+  this.articleId=articleId;
+}
+
+http://stackoverflow.com/questions/3182759/
+public void setId(int id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/3182759/
+public void setText(String text){
+  this.text=text;
+}
+
+http://stackoverflow.com/questions/3182759/
+public void setUser(User user){
+  this.user=user;
+}
+
+http://stackoverflow.com/questions/3182759/
+@Override public String toString(){
+  return "Comment [" + "articleId " + articleId + " "+ "id "+ id+ " "+ "text "+ text+ " "+ "]";
+}
+
+http://stackoverflow.com/questions/1032912/
+public void start() throws IOException{
+    String state = android.os.Environment.getExternalStorageState();
+    if(!state.equals(Environment.MEDIA_MOUNTED))
+    {
+        throw new IOException("SD card is not mounted. It is " + state + ".");
+    }
+    File directory = new File(path).getParentFile();
+    if(!directory.exists() && !directory.mkdirs())
+    {
+        throw new IOException("Path to file could not be created.");
+    }
+
+    recorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+    recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+    recorder.setVideoEncoder(MediaRecorder.VideoEncoder.H263);
+    recorder.setVideoFrameRate(15);
+    recorder.setVideoSize(176, 144);
+    recorder.setOutputFile(path);
+    recorder.prepare();
+    recorder.start();
+    this.state = VideoRecorderState.STATE_RECORDING;
+}
+
+http://stackoverflow.com/questions/3332212/
+ public static DatabaseFactory getInstance() {
+        if (DatabaseFactory.instance == null) {
+            DatabaseFactory.instance = new DatabaseFactory().init();
+        }
+
+        return DatabaseFactory.instance;
+    }
+
+http://stackoverflow.com/questions/3332212/
+public Session getSession(){
+  return this.sessionFactory.openSession();
+}
+
+http://stackoverflow.com/questions/3332212/
+ private DatabaseFactory init() {
+        Configuration cfg = new Configuration();
+
+        cfg.addClass(domain.UserClass.class);
+        cfg.addClass(domain.User.class);
+
+        cfg.setProperties(System.getProperties());
+        cfg.configure();
+        SessionFactory sessions = cfg.buildSessionFactory();
+
+        sessionFactory = cfg.configure().buildSessionFactory();
+        return this;
+    }
+
+http://stackoverflow.com/questions/559902/
+Bitmap bitmap = Media.getBitmap(getContentResolver(), imageUri);
+ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+bitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+ByteArrayInputStream fileInputStream = new ByteArrayInputStream(bytes.toByteArray());
+
+http://stackoverflow.com/questions/587917/
+
+  Intent sendIntent=new Intent(Intent.ACTION_SEND);
+  sendIntent.setType("image/jpeg");
+  sendIntent.putExtra(Intent.EXTRA_SUBJECT,"Photo");
+  sendIntent.putExtra(Intent.EXTRA_STREAM,Uri.parse("file://sdcard/dcim/Camera/filename.jpg"));
+  sendIntent.putExtra(Intent.EXTRA_TEXT,"Enjoy the photo");
+  startActivity(Intent.createChooser(sendIntent,"Email:"));
+
+
+http://stackoverflow.com/questions/4585883/
+@Test public void second(){
+  assertEquals("00:00:01",OurDateTimeFormatter.format(1000));
+}
+
+http://stackoverflow.com/questions/4585883/
+@Test public void minute(){
+  assertEquals("00:01:00",OurDateTimeFormatter.format(1000 * 60));
+}
+
+http://stackoverflow.com/questions/4585883/
+@Test public void hour(){
+  assertEquals("01:00:00",OurDateTimeFormatter.format(1000 * 60 * 60));
+}
+
+http://stackoverflow.com/questions/4585883/
+@Test public void almostMidnight(){
+  final int secondsInDay=60 * 60 * 24;
+  assertEquals("23:59:59",OurDateTimeFormatter.format(1000 * (secondsInDay - 1)));
+}
+
+http://stackoverflow.com/questions/4585883/
+@Test public void twoDaysAndAHalf(){
+  final int secondsInDay=60 * 60 * 24;
+  assertEquals("12:00:00 and 2 days",OurDateTimeFormatter.format(1000 * secondsInDay * 5 / 2));
+}
+
+http://stackoverflow.com/questions/4585883/
+public static String format(long millis){
+  return dateFormat.print(new Period(millis).normalizedStandard());
+}
+
+http://stackoverflow.com/questions/9485667/
+public DateTime parseDateTime(final String text){
+  DateTimeFormatter formatters[]=new DateTimeFormatter[20];
+  if (text.isEmpty())   return null;
+  int field=0;
+  DateTime dateTime=null;
+  IllegalArgumentException exception=null;
+  for (; field < FIELD_COUNT; ++field) {
+    if (null != formatters[field]) {
+      try {
+        dateTime=formatters[field].parseDateTime(text);
+        break;
+      }
+ catch (      final IllegalArgumentException e) {
+        exception=null != exception ? exception : e;
+      }
+    }
+  }
+  if (dateTime == null) {
+    throw exception;
+  }
+  return dateTime;
+}
+
+http://stackoverflow.com/questions/836805/
+public static void main(String[] args) {
+    Gson gson = new Gson();
+
+    MockMessage mock1 = new MockMessage();
+    MockMessage mock2 = new MockMessage();
+    MockMessageOther mock3 = new MockMessageOther();
+
+    List<MockMessage> messages = new ArrayList<MockMessage>();
+    messages.add(mock1);
+    messages.add(mock2);
+    messages.add(mock3);
+
+    String jsonString = gson.toJson(messages);
+
+    //JSON list format is non-intuitive single element array with class name fields
+    System.out.println(jsonString);
+    List gsonJSONUnmarshalledMessages = (List)gson.fromJson(jsonString, List.class);
+    //This will print 3 messages unmarshalled
+    System.out.println("XStream format JSON Number of messages unmarshalled: " + gsonJSONUnmarshalledMessages.size());
+}
+
+http://stackoverflow.com/questions/992508/
+@Override public void onCreate(){
+  PowerManager pm=(PowerManager)getSystemService(Context.POWER_SERVICE);
+  PowerManager.WakeLock wl=pm.newWakeLock(PowerManager.FULL_WAKE_LOCK,"My Tag");
+  wl.acquire();
+}
+
+http://stackoverflow.com/questions/992508/
+@Override public void onDestroy(){
+  wl.release();
+}
+
+http://stackoverflow.com/questions/831168/
+public MousyAbsolutePanel(int width){
+        System.out.println("MousyAbsolutePanel being created with width:" + width);
+        initWidget(abs);
+        abs.setWidth(String.valueOf(width));
+        abs.setHeight("100%");
+        abs.setStyleName("mousyAbsolutePanel");
+    }
+
+http://stackoverflow.com/questions/831168/
+public void onMouseDown(MouseDownEvent event){
+  System.out.println("onMouseDown()");
+}
+
+http://stackoverflow.com/questions/1795474/
+try
+{
+    RequestBuilder rb = new RequestBuilder(
+    RequestBuilder.POST, "AuthenticationChecker.html");
+            rb.sendRequest(null, new RequestCallback() 
+            {
+                public void onError(Request request, Throwable exception)
+                {
+                    RootPanel.get().add(new HTML("[error]" + exception.getMessage()));
+                }
+                public void onResponseReceived(Request request, Response response)
+                {
+                    RootPanel.get()
+                   .add(new HTML("[success (" + response.getStatusCode() + "," + response.getStatusText() + ")]"));
+                }
+            }
+    );
+}
+catch (Exception e)
+{
+    RootPanel.get().add(new HTML("Error sending request " + e.getMessage()));
+}
+
+http://stackoverflow.com/questions/2868845/
+private HorizontalPanel getSomeGWT(){
+  HorizontalPanel pointsLogoPanel=new HorizontalPanel();
+  for (int i=0; i < 350; i++) {
+    HorizontalPanel innerContainer=new HorizontalPanel();
+    innerContainer.add(new Label("some GWT text"));
+    pointsLogoPanel.add(innerContainer);
+  }
+  return pointsLogoPanel;
+}
+
+http://stackoverflow.com/questions/2868845/
+private LayoutContainer getSomeGXT(){
+  LayoutContainer pointsLogoPanel=new LayoutContainer();
+  pointsLogoPanel.setLayoutOnChange(true);
+  for (int i=0; i < 350; i++) {
+    LayoutContainer innerContainer=new LayoutContainer();
+    pointsLogoPanel.add(innerContainer);
+  }
+  return pointsLogoPanel;
+}
+
+
+http://stackoverflow.com/questions/2214891/
+public PopUpPanel(final Widget widget){
+  super(true);
+  VerticalPanel vp=new VerticalPanel();
+  vp.add(connect);
+  vp.add(delete);
+  vp.add(detail);
+  setWidget(vp);
+}
+
+http://stackoverflow.com/questions/3816385/
+ public static void buildSessionFactory(){
+    Configuration configuration = new Configuration();
+    synchronized(HibernateUtil.class){
+      if(sessionFactory == null){
+        try {
+          Properties properties = new Properties();
+          properties.load(HibernateUtil.class.getClassLoader().getResourceAsStream(confFile));
+          configuration.setProperties(properties);
+        } catch (Exception e) {
+          log.fatal("cannot load the specified hibernate properties file: " + confFile);
+          throw new RuntimeException("cannot load the specified hibernate properties file : " + confFile, e);
+        }
+        sessionFactory = configuration.configure().buildSessionFactory();
+      }
+
+      HibernatePBEEncryptorRegistry registry = HibernatePBEEncryptorRegistry.getInstance();
+
+      if(registry.getPBEStringEncryptor("strongHibernateStringEncryptor") == null) {
+        StandardPBEStringEncryptor strongEncryptor = new StandardPBEStringEncryptor();
+        strongEncryptor.setAlgorithm("PBEWithMD5AndDES"); // not really needed as it is the default
+        strongEncryptor.setPassword("aStrongPassword");
+        registry.registerPBEStringEncryptor("strongHibernateStringEncryptor", strongEncryptor);
+      }
+    }
+  }
+
+
+http://stackoverflow.com/questions/3816385/
+public static SessionFactory getSessionFactory(){
+  if (sessionFactory == null) {
+    buildSessionFactory();
+  }
+  return sessionFactory;
+}
+
+http://stackoverflow.com/questions/3816385/
+public static Session getCurrentSession(){
+  if (!getSessionFactory().getCurrentSession().isOpen())   getSessionFactory().openSession();
+  return getSessionFactory().getCurrentSession();
+}
+
+http://stackoverflow.com/questions/5377380/
+  XStream xstream=new XStream(){
+    @Override protected MapperWrapper wrapMapper(    MapperWrapper next){
+      return new MapperWrapper(next){
+        @Override public boolean shouldSerializeMember(        Class definedIn,        String fieldName){
+          if (definedIn == Object.class) {
+            return false;
+          }
+          return super.shouldSerializeMember(definedIn,fieldName);
+        }
+      };
+    }
+  };
+
+http://stackoverflow.com/questions/4498274/
+DateTimeFormatter dtf = DateTimeFormat.forPattern("EEE MMM dd HH:mm:ss z yyyy");
+System.out.println(dtf.parseDateTime("Fri Nov 11 12:13:14 JST 2010"));
+//Exception in thread "main" java.lang.IllegalArgumentException: Invalid format: "Fri Nov 11 12:13:14 JST 2010" is malformed at "JST 2010"
+//at org.joda.time.format.DateTimeFormatter.parseDateTime(DateTimeFormatter.java:673)
+
+http://stackoverflow.com/questions/2029301/
+private static SessionFactory buildSessionFactory(){
+	try {
+		// Create the SessionFactory from hibernate.cfg.xml
+		Configuration configuration = new Configuration().configure();
+
+
+
+		return configuration.buildSessionFactory();
+	}
+	catch (Throwable ex) {
+		// Make sure you log the exception, as it might be swallowed
+		System.err.println("Initial SessionFactory creation failed." + ex);
+		throw new ExceptionInInitializerError(ex);
+	}
+}
+
+
+http://stackoverflow.com/questions/26362/
+public MyItemizedOverlay(Drawable defaultMarker) {
+    super(defaultMarker);
+    populate();
+  }
+
+http://stackoverflow.com/questions/26362/
+@Override 
+protected OverlayItem createItem(int index){
+  Double lat=(index + 37.422006) * 1E6;
+  Double lng=-122.084095 * 1E6;
+  GeoPoint point=new GeoPoint(lat.intValue(),lng.intValue());
+  OverlayItem oi=new OverlayItem(point,"Marker","Marker Text");
+  return oi;
+}
+
+http://stackoverflow.com/questions/1443590/
+ Session session = null;
+
+    try {
+
+        SessionFactory sessionFactory = new Configuration().configure()
+                .buildSessionFactory();
+        session = sessionFactory.openSession();
+
+        String id = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap().get(
+                        "storeId");
+
+        Transaction t = session.beginTransaction();
+
+        stores = getStores();
+
+        for (Store store : stores) {
+            if (store.getId() == Integer.parseInt(id)) {
+                session.delete(store);
+            }
+        }
+        t.commit();
+    } catch (Exception e) {
+    } finally {
+        session.close();
+    }
+}
+
+http://stackoverflow.com/questions/12851934/
+{
+  DateTime d1=new DateTime();
+  DateTime d2=new DateTime();
+  long diffInMillis=d2.getMillis() - d1.getMillis();
+}
+
+http://stackoverflow.com/questions/5622194/
+public Check(MillisProvider millisProvider, DateTime someDate) {
+	this.millisProvider = millisProvider;
+	this.someDate = someDate;
+}
+
+http://stackoverflow.com/questions/5622194/
+public boolean isAvailable() {
+	long now = millisProvider.getMillis();
+	return (someDate.isBefore(now));
+}
+
+http://stackoverflow.com/questions/9711454/
+public final int getLastDayOfMonth(final int month,final int year){
+  int lastDay=0;
+  if ((month >= JANUARY) && (month <= DECEMBER)) {
+    LocalDate aDate=new LocalDate(year,month,FIRST_OF_THE_MONTH);
+    lastDay=aDate.dayOfMonth().getMaximumValue();
+  }
+  return lastDay;
+}
+
+http://stackoverflow.com/questions/4034388/
+@Test
+ public void testIfJodaTimePeriodsHandlesPeriodTypesOtherThanMinutesAndHours() {
+  long twentyDaysInMillis = TimeUnit.MILLISECONDS.convert(20, TimeUnit.DAYS);
+  Period twoWeeks = new Period(twentyDaysInMillis, PeriodType.weeks());
+  Assert.assertEquals(2, twoWeeks.getWeeks()); 
+// twoWeeks.getWeeks() actually returns 0!!
+ }
+
+http://stackoverflow.com/questions/1062476/
+@Override 
+protected void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  final TabHost tabHost=getTabHost();
+  TabHost.TabSpec ts=tabHost.newTabSpec("ID_1");
+  ts.setIndicator("1");
+  ts.setContent(this);
+  tabHost.addTab(ts);
+  ts=tabHost.newTabSpec("ID_2");
+  ts.setIndicator("2");
+  ts.setContent(this);
+  tabHost.addTab(ts);
+  ts=tabHost.newTabSpec("ID_3");
+  ts.setIndicator("3");
+  ts.setContent(this);
+  tabHost.addTab(ts);
+  tabHost.setOnClickListener(this);
+  tabHost.setOnTabChangedListener(this);
+}
+
+http://stackoverflow.com/questions/1062476/
+public void onClick(View v){
+  Log.d(LOG_KEY,"OnClick");
+}
+
+http://stackoverflow.com/questions/1062476/
+public void onTabChanged(String tabId){
+  Log.d(LOG_KEY,"OnTabChanged");
+}
+
+http://stackoverflow.com/questions/7807271/
+{
+String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+DateTimeFormatter DATETIME_FORMATTER = DateTimeFormat.forPattern(DATE_FORMAT);
+DateTimeZone dateTimeZone = DateTimeZone.forID("-03:00");
+//date is 2000-01-01 00:00:00 -03:00
+DateTime date =    DATETIME_FORMATTER.withZone(dateTimeZone).parseDateTime("2000-01-01 00:00:00"));
+System.out.println("Current date is: " + date.toString());
+//now convert to UTC
+DateTime convertedDate = date.toDateTime(DateTimeZone.UTC);
+System.out.println("Converted date: " + date.toString());
+}
+
+http://stackoverflow.com/questions/2458774/
+public static void main(String[] args) {
+  Session session = null;
+  SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+  session = sessionFactory.openSession();
+  Transaction transaction = session.getTransaction();
+
+  BusinessCard card = new BusinessCard();
+  card.setId(1);
+  card.setName("Özgür");
+  card.setDescription("Acıklama");
+
+  try{
+  transaction.begin();
+  session.save(card);
+  transaction.commit();
+  } catch(Exception e){
+   e.printStackTrace();
+  }
+  finally{
+   session.close();
+  }
+ }
+
+http://stackoverflow.com/questions/2475886/
+RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.POST, URL.encode(serverUrl)); //-- serverUrl is the url to which this call is posted to.
+requestBuilder.setHeader("Content-Type", "application/x-www-form-urlencoded");
+requestBuilder.setHeader("Expires","0");
+requestBuilder.sendRequest(
+    postData, 
+    new RequestCallback()
+    {
+
+        public void onError(Request request, Throwable exception)
+        {
+            //Do nothing
+        }
+
+        public void onResponseReceived(Request request, Response response)
+        {
+            //sometimes when the server is restarted, I get response.getStatusCode() = 304 and the response.getText() as blank
+        }
+    }
+);
+
+http://stackoverflow.com/questions/2680739/
+public void LoadData() throws RequestException{
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
+
+        builder.sendRequest(null, new RequestCallback(){
+            @Override
+            public void onError(Request request, Throwable exception) {
+                Window.alert("error " + exception);
+            }
+
+            public void onResponseReceived(Request request,
+                    Response response) {        
+            //1                                                         
+                            //data(getuserdata(response.getText()));
+                            //2
+                  JsArray<UserData> uda = JsonUtils.unsafeEval(response.getText()) 
+                              data(uda);    
+            }
+        });
+    }
+
+http://stackoverflow.com/questions/2680739/
+public void data(JsArray<UserData> data){
+    for (int i = 0; i < data.length(); i++) {
+        String lkode =data.get(i).getKode(); 
+        String lname =data.get(i).getNama();                
+
+        Label l = new Label(lkode+" "+lname);
+        tb.setWidget(i, 0, l);
+      }
+    RootPanel.get().add(new HTML("my data"));
+    RootPanel.get().add(tb);
+} 
+
+
+http://stackoverflow.com/questions/2680739/
+public void onModuleLoad(){
+  try {
+    LoadData();
+  }
+ catch (  RequestException e) {
+    e.printStackTrace();
+  }
+}
+
+http://stackoverflow.com/questions/3969102/
+public ListItem(){
+  setElement(DOM.createElement("LI"));
+}
+
+http://stackoverflow.com/questions/3969102/
+public void add(Widget w){
+  super.add(w,getElement());
+}
+
+http://stackoverflow.com/questions/3969102/
+public void insert(Widget w,int beforeIndex){
+  super.insert(w,getElement(),beforeIndex,true);
+}
+
+http://stackoverflow.com/questions/3969102/
+public String getText(){
+  return DOM.getInnerText(getElement());
+}
+
+http://stackoverflow.com/questions/3969102/
+public void setText(String text){
+  DOM.setInnerText(getElement(),(text == null) ? "" : text);
+}
+
+http://stackoverflow.com/questions/3969102/
+public void setId(String id){
+  DOM.setElementAttribute(getElement(),"id",id);
+}
+
+http://stackoverflow.com/questions/3969102/
+public String getHTML(){
+  return DOM.getInnerHTML(getElement());
+}
+
+http://stackoverflow.com/questions/3969102/
+public void setHTML(String html){
+  DOM.setInnerHTML(getElement(),(html == null) ? "" : html);
+}
+
+http://stackoverflow.com/questions/3969102/
+public HandlerRegistration addClickHandler(ClickHandler handler){
+  return addDomHandler(handler,ClickEvent.getType());
+}
+
+http://stackoverflow.com/questions/3969102/
+public HandlerRegistration addKeyDownHandler(KeyDownHandler handler){
+  return addDomHandler(handler,KeyDownEvent.getType());
+}
+
+http://stackoverflow.com/questions/3969102/
+public HandlerRegistration addBlurHandler(BlurHandler handler){
+  return addDomHandler(handler,BlurEvent.getType());
+}
+
+http://stackoverflow.com/questions/2389999/
+/** 
+ * This is the entry point method.
+ */
+public void onModuleLoad(){
+  RequestBuilder requestBuilder=new RequestBuilder(RequestBuilder.GET,SERVER_URL);
+  try {
+    requestBuilder.sendRequest(null,new Jazz10RequestCallback());
+  }
+ catch (  RequestException e) {
+    Window.alert("Failed to send the message: " + e.getMessage());
+  }
+}
+
+http://stackoverflow.com/questions/2389999/
+public void onError(Request request, Throwable exception) {
+		// never reach here
+Window.alert("Failed to send the message: "
+			+ exception.getMessage());
+
+}
+
+http://stackoverflow.com/questions/2389999/
+ public void onResponseReceived(Request request, Response response) {
+	// render output
+	Window.alert(response.getText());
+
+}
+http://stackoverflow.com/questions/4562711/
+public void setSessionFactory(SessionFactory sessionFactory){
+  this.sessionFactory=sessionFactory;
+}
+
+http://stackoverflow.com/questions/4562711/
+@SuppressWarnings("unchecked") 
+public List<Name> getAll(){
+  Session session=this.sessionFactory.getCurrentSession();
+  List<Name> names=(List<Name>)session.createQuery("from Name").list();
+  return names;
+}
+
+http://stackoverflow.com/questions/4562711/
+public void save(Name name){
+  Session session=this.sessionFactory.getCurrentSession();
+  session.saveOrUpdate(name);
+  session.flush();
+}
+
+http://stackoverflow.com/questions/2456470/
+public void test() throws Exception {
+  XStream x=new XStream(new XppDriver());
+  x.autodetectAnnotations(true);
+  x.processAnnotations(TestObject.class);
+  x.registerConverter(new JavaBeanConverter(x.getMapper()));
+  TestObject o=new TestObject();
+  o.setFoo("BAR");
+  String xml=x.toXML(o);
+  System.out.println(xml);
+}
+
+http://stackoverflow.com/questions/2456470/
+public void setFoo(String foo){
+  this.foo=foo;
+}
+
+http://stackoverflow.com/questions/2302014/
+public void onModuleLoad(){
+  final Button sendButton=new Button("Send");
+  final TextBox nameField=new TextBox();
+  nameField.setText("GWT User");
+  final Label errorLabel=new Label();
+  sendButton.addStyleName("sendButton");
+  RootPanel.get("nameFieldContainer").add(nameField);
+  RootPanel.get("sendButtonContainer").add(sendButton);
+  RootPanel.get("errorLabelContainer").add(errorLabel);
+  nameField.setFocus(true);
+  nameField.selectAll();
+  final DialogBox dialogBox=new DialogBox();
+  dialogBox.setText("Remote Procedure Call");
+  dialogBox.setAnimationEnabled(true);
+  final Button closeButton=new Button("Close");
+  closeButton.getElement().setId("closeButton");
+  final Label textToServerLabel=new Label();
+  final HTML serverResponseLabel=new HTML();
+  VerticalPanel dialogVPanel=new VerticalPanel();
+  dialogVPanel.addStyleName("dialogVPanel");
+  dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
+  dialogVPanel.add(textToServerLabel);
+  dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
+  dialogVPanel.add(serverResponseLabel);
+  dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+  dialogVPanel.add(closeButton);
+  dialogBox.setWidget(dialogVPanel);
+  closeButton.addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      dialogBox.hide();
+      sendButton.setEnabled(true);
+      sendButton.setFocus(true);
+    }
+  }
+);
+class MyHandler implements ClickHandler, KeyUpHandler {
+    /** 
+ * Fired when the user clicks on the sendButton.
+ */
+    public void onClick(    ClickEvent event){
+      sendNameToServer();
+    }
+    /** 
+ * Fired when the user types in the nameField.
+ */
+    public void onKeyUp(    KeyUpEvent event){
+      if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+        sendNameToServer();
+      }
+    }
+    /** 
+ * Send the name from the nameField to the server and wait for a response.
+ */
+    private void sendNameToServer(){
+      errorLabel.setText("");
+      String textToServer=nameField.getText();
+      sendButton.setEnabled(false);
+      textToServerLabel.setText(textToServer);
+      serverResponseLabel.setText("");
+    }
+  }
+  MyHandler handler=new MyHandler();
+  sendButton.addClickHandler(handler);
+  nameField.addKeyUpHandler(handler);
+}
+
+http://stackoverflow.com/questions/1212669/
+/** 
+ * Determines if a model is active. A model is active if now is after or equal to from , and thru is either null, or after now, or equal to now.
+ */
+@Transient public boolean isActive(){
+  Date now=new Date();
+  boolean afterFrom=from.before(now) || from.equals(now);
+  boolean beforeThru=thru == null || thru.after(now) || thru.equals(now);
+  return afterFrom && beforeThru;
+}
+
+http://stackoverflow.com/questions/1212669/
+@AssertTrue(message="Dates are not valid the thru date must be empty, or after the fromdate.") public boolean areDatesValid(){
+  if (thru == null) {
+    return true;
+  }
+ else {
+    return thru.after(from);
+  }
+}
+
+http://stackoverflow.com/questions/1212669/
+public void setFrom(Date from){
+  this.from=from;
+}
+
+http://stackoverflow.com/questions/1212669/
+public void setThru(Date thru){
+  this.thru=thru;
+}
+
+http://stackoverflow.com/questions/1204012/
+@Override 
+public void onCreate(){
+  super.onCreate();
+  startThread();
+}
+
+http://stackoverflow.com/questions/1204012/
+@Override public void onDestroy(){
+  super.onDestroy();
+  android.util.Log.v("@@@@@@@@@@@@@@@@@@@@","DoScan.onDestroy");
+  stopThread();
+}
+
+http://stackoverflow.com/questions/1204012/
+public synchronized void startThread(){
+  if (runner == null) {
+    android.util.Log.v("@@@@@@@@@@@@@@@@@@@@","DoScan.startthread");
+    runner.start();
+  }
+}
+
+http://stackoverflow.com/questions/1204012/
+public synchronized void stopThread(){
+  if (runner != null) {
+    android.util.Log.v("@@@@@@@@@@@@@@@@@@@@","DoScan.stopthread");
+    Thread moribund=runner;
+    runner=null;
+    moribund.interrupt();
+    android.util.Log.v("@@@@@@@@@@@@@@@@@@@@","interrupted?" + moribund.isInterrupted());
+  }
+}
+
+http://stackoverflow.com/questions/3618678/
+@Override public void onModuleLoad(){
+  Widget childone=new HTML("left"), childtwo=new HTML("right");
+  LayoutPanel p=new LayoutPanel();
+  p.add(childone);
+  p.add(childtwo);
+  p.setWidgetLeftWidth(childone,0,PCT,50,PCT);
+  p.setWidgetRightWidth(childtwo,0,PCT,50,PCT);
+  RootLayoutPanel rp=RootLayoutPanel.get();
+  rp.add(p);
+}
+
+http://stackoverflow.com/questions/3534854/
+public static void test(){
+  Client c = new Client();
+  c.setCode("123343");
+  c.setAdresse("fkhdhdmh");
+  c.setNom("dgsfhgsdfgs");
+  c.setPhone("53456464");
+  c.setContrat(new Contrat());
+
+  Session session = HibernateUtil.getSession();
+        session.beginTransaction();        
+        session.save(c);
+        session.getTransaction().commit();
+}
+
+http://stackoverflow.com/questions/3143234/
+ public static void main(String[] args) throws FileNotFoundException {
+	XStream xs = new XStream(new DomDriver());
+	Foo f = new Foo(1, "booo", new Bar(42));
+	PrintWriter pw = new PrintWriter("a.xml");
+	xs.toXML(f,pw);
+}
+
+http://stackoverflow.com/questions/3143234/
+public Bar(int id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/3143234/
+public Foo(int a,String b,Bar c){
+  this.a=a;
+  this.b=b;
+  this.boo=c;
+}
+
+http://stackoverflow.com/questions/9503771/
+{
+  DateTimeZone dtz=DateTimeZone.forOffsetHours(0);
+  DateTime dt=new DateTime(dtz);
+  System.out.println(dt);
+  System.out.println(dt.toDate());
+}
+
+http://stackoverflow.com/questions/901057/
+@Override 
+public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  ArrayList<String> results=new ArrayList<String>();
+  setContentView(R.layout.main);
+  SQLiteDatabase mydb=null;
+  try {
+    mydb.openOrCreateDatabase(MY_DATABASE_NAME,null);
+  }
+ catch (  Exception e) {
+  }
+}
+
+http://stackoverflow.com/questions/10154428/
+{
+  PeriodFormatter pf=new PeriodFormatterBuilder().append(ISOPeriodFormat.standard()).toFormatter();
+  Period period=pf.parsePeriod("PT01H00M");
+}
+
+http://stackoverflow.com/questions/6922964/
+{
+  DateTimeFormatter dtf=DateTimeFormat.forPattern("dd-MM-yyyy HH:mm:ss.SSS z");
+  String dts=dtf.print(System.currentTimeMillis());
+  System.out.println(dts);
+  DateTime dt=dtf.parseDateTime(dts);
+}
+
+http://stackoverflow.com/questions/1482513/
+private final JsArray<JsArrayInteger> popItemFromArray(final JsArray<JsArrayInteger> oldArray){
+  JsArray<JsArrayInteger> newArray=null;
+  for (int i=0; i < oldArray.length() - 1; i++) {
+    newArray.set(i,oldArray.get(i));
+  }
+  return newArray;
+}
+
+http://stackoverflow.com/questions/263507/
+{
+  LinearLayout zoomView=null;
+  zoomView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+  zoomView.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+  mapView.addView(zoomView);
+}
+
+http://stackoverflow.com/questions/1606513/
+RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.POST,"j_spring_security_check");
+requestBuilder.setHeader("Content-Type", "application/x-www-form-urlencoded");
+//-- sending the username and the password in designated fields.
+//Hard coding values for testing reasons:
+requestBuilder.setRequestData("j_username=test1" +
+				"&j_password=abc");
+
+requestBuilder.setCallback(new RequestCallback() {
+	public void onError(Request request, Throwable exception)
+	{
+		Window.alert("ERROR !!!"+exception.getMessage());
+	}
+	public void onResponseReceived(Request request, Response response)
+	{
+		if (response.getStatusCode() != Response.SC_UNAUTHORIZED && response.getStatusCode() != Response.SC_OK)
+		{ 
+			onError(request, new RequestException(response.getStatusText() + ":\n" + response.getText())); 
+			return; 
+		}
+
+		if (response.getStatusCode() == Response.SC_UNAUTHORIZED)
+		{ 
+			//This code is never encountered !! :((
+			Window.alert("You have entered an incorrect username or password. Please try again."); 
+		}
+		else
+		{ 
+			String height = 800+"";
+			String width = 600+"";
+
+			Window.alert("Authorisation succeeded, you may enter....");
+			Window.open("MainScreen.html", "Main screen!!", "height=" + height + ",width=" + width
+							+ ",scrollbars=yes,resizable=yes,titlebar=no,toolbar=no,status=yes,close=no,left=0,top=0");
+		} 
+
+	}
+});
+requestBuilder.send();
+
+http://stackoverflow.com/questions/866769/
+@Override public void onCreate(Bundle icicle){
+  super.onCreate(icicle);
+  Cursor C=getContentResolver().query(People.CONTENT_URI,null,null,null,null);
+  startManagingCursor(C);
+  String[] columns=new String[]{People.NAME};
+  int[] names=new int[]{R.id.lay};
+  mAdapter=new SimpleCursorAdapter(this,R.layout.mycontacts,C,columns,names);
+  setListAdapter(mAdapter);
+}
+
+http://stackoverflow.com/questions/866769/
+@Override protected void onListItemClick(ListView l,View v,int position,long id){
+  super.onListItemClick(l,v,position,id);
+  Cursor C=(Cursor)mAdapter.getItem(position);
+  PBCONTACT=C.getString(C.getColumnIndex(People.NAME));
+  Intent i=new Intent(this,Note.class);
+  startActivityForResult(i,ACTIVITY_CREATE);
+}
+
+http://stackoverflow.com/questions/3218631/
+public static List<?> getData(){
+  SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+  Session session=sessionFactory.getCurrentSession();
+  List<?> result=null;
+  try {
+    session.beginTransaction();
+    Query query=session.createQuery("from Users");
+    result=query.list();
+    session.getTransaction().commit();
+    query.setReadOnly(true);
+    query.setMaxResults(50);
+    session.flush();
+    session.close();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return result;
+}
+
+http://stackoverflow.com/questions/906241/
+public SQLiteDialect(){
+  super();
+  registerColumnType(Types.BIT,"integer");
+  registerColumnType(Types.TINYINT,"tinyint");
+  registerColumnType(Types.SMALLINT,"smallint");
+  registerColumnType(Types.INTEGER,"integer");
+  registerColumnType(Types.BIGINT,"bigint");
+  registerColumnType(Types.FLOAT,"float");
+  registerColumnType(Types.REAL,"real");
+  registerColumnType(Types.DOUBLE,"double");
+  registerColumnType(Types.NUMERIC,"numeric");
+  registerColumnType(Types.DECIMAL,"decimal");
+  registerColumnType(Types.CHAR,"char");
+  registerColumnType(Types.VARCHAR,"varchar");
+  registerColumnType(Types.LONGVARCHAR,"longvarchar");
+  registerColumnType(Types.DATE,"date");
+  registerColumnType(Types.TIME,"time");
+  registerColumnType(Types.TIMESTAMP,"timestamp");
+  registerColumnType(Types.BINARY,"blob");
+  registerColumnType(Types.VARBINARY,"blob");
+  registerColumnType(Types.LONGVARBINARY,"blob");
+  registerColumnType(Types.BLOB,"blob");
+  registerColumnType(Types.CLOB,"clob");
+  registerColumnType(Types.BOOLEAN,"integer");
+  registerFunction("concat",new VarArgsSQLFunction(Hibernate.STRING,"","||",""));
+  registerFunction("mod",new SQLFunctionTemplate(Hibernate.INTEGER,"?1 % ?2"));
+  registerFunction("substr",new StandardSQLFunction("substr",Hibernate.STRING));
+  registerFunction("substring",new StandardSQLFunction("substr",Hibernate.STRING));
+}
+
+http://stackoverflow.com/questions/906241/
+public String getLimitString(String query,boolean hasOffset){
+  return new StringBuffer(query.length() + 20).append(query).append(hasOffset ? " limit ? offset ?" : " limit ?").toString();
+}
+
+http://stackoverflow.com/questions/906241/
+public String getDropForeignKeyString(){
+  throw new UnsupportedOperationException("No drop foreign key syntax supported by SQLiteDialect");
+}
+
+http://stackoverflow.com/questions/906241/
+public String getAddForeignKeyConstraintString(String constraintName,String[] foreignKey,String referencedTable,String[] primaryKey,boolean referencesPrimaryKey){
+  throw new UnsupportedOperationException("No add foreign key syntax supported by SQLiteDialect");
+}
+
+http://stackoverflow.com/questions/906241/
+public String getAddPrimaryKeyConstraintString(String constraintName){
+  throw new UnsupportedOperationException("No add primary key syntax supported by SQLiteDialect");
+}
+
+http://stackoverflow.com/questions/3681045/
+public static void main(String[] args) {
+
+            Session session = null;
+            //String query = "select example.id, example.data from Example example";
+
+            try{
+
+                SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                session = sessionFactory.openSession();
+
+                System.out.println("selecting records");
+                Query q = session.getNamedQuery("getRecordsSP");
+        //      Query q =  session.createSQLQuery("call getRecords","",Example.class);
+
+                System.out.print("Done");
+                List l = q.list();
+
+
+                for(Iterator it = l.iterator() ;it.hasNext();){
+                    Object row [] = (Object [])it.next();
+                    System.out.println(row.length);
+            //      System.out.println(row[0]);
+            //      System.out.println("ID " + row[0]);
+            //  System.out.println("Data "+ row[1]);
+                }
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            finally{
+                session.flush();
+                session.close();
+
+        }
+    }
+
+http://stackoverflow.com/questions/2385802/
+final Button sendButton = new Button("Send");
+sendButton.getElement().setId("button");
+RootPanel.get().getElement().appendChild(sendButton.getElement());
+
+NodeList buttonElement = Document.get().getElementsByTagName("button");
+if(buttonElement != null && buttonElement.getLength() > 0){
+buttonElement.getItem(0).setNodeValue("Changed");
+}else{
+GWT.log("Can't select button");
+}
+
+http://stackoverflow.com/questions/2182921/
+{
+  DateTimeZone zone=DateTimeZone.forID("Europe/London");
+  Chronology coptic=GJChronology.getInstance(zone);
+  DateTime dt=new DateTime(coptic);
+  DateTime minusOneDay=dt.minusDays(1);
+  System.out.println(minusOneDay);
+}
+
+http://stackoverflow.com/questions/2369187/
+final FormPanel formPanel = new FormPanel();
+RootPanel.get("openId").add(formPanel);
+VerticalPanel openIdContainer = new VerticalPanel();
+formPanel.add(openIdContainer);
+
+TextBox url = new TextBox();
+url.setText("https://www.google.com/accounts/o8/id");
+url.setName("j_username");
+openIdContainer.add(url);
+
+formPanel.setAction("j_spring_openid_security_check");
+formPanel.setMethod(FormPanel.METHOD_POST);
+
+Button btn = new Button("Open ID");
+btn.addClickListener(new ClickListener() {
+	public void onClick(Widget sender)
+	{
+		formPanel.submit();
+	}
+});
+openIdContainer.add(btn);        
+
+formPanel.addFormHandler(new FormHandler() {
+	public void onSubmit(FormSubmitEvent event)
+	{
+		System.out.println("On Submit invoked " +event.isCancelled());
+	}
+	public void onSubmitComplete(FormSubmitCompleteEvent event)
+	{
+		System.out.println("On Submit Complete invoked " + event.toString());
+	}
+
+});
+
+http://stackoverflow.com/questions/1262298/
+public static void load(Session session,List<String> values){
+	patient PatientInfo = new patient(); 
+	PatientInfo.setPatientId(Integer.parseInt(values.get(0)));
+	PatientInfo.setPatientName( values.get(1));
+	PatientInfo.setProviderId( values.get(2) );
+
+	session.save( PatientInfo );
+}
+
+http://stackoverflow.com/questions/1262298/
+/** 
+ * @param ProviderName the ProviderName to set
+ */
+public void setProviderName(String name){
+  this.providerName=name;
+}
+
+http://stackoverflow.com/questions/1262298/
+/** 
+ * @param id the ProvId to set
+ */
+public void setProviderId(String id){
+  this.providerId=id;
+}
+
+http://stackoverflow.com/questions/1690154/
+public void onModuleLoad(){
+	AbsolutePanel ap = new AbsolutePanel();
+	ap.setSize("600px", "600px");
+	RootPanel.get().add(ap, 10, 10);
+
+	Diagram diagram = new Diagram(ap);
+	Label l = new Label("Example");
+	ap.add(l);
+
+	Connector c = new Connector(50, 80, 100, 100);
+	c.showOnDiagram(diagram);
+
+	Label l1 = new Label("Label for VP");
+	TextBox t1 = new TextBox();
+	t1.setText("Hello");
+	VerticalPanel vp = new VerticalPanel();
+	vp.add(t1);
+	vp.add(l1);
+	ap.add(vp);
+
+	Shape shaperforVP = new Shape(vp);
+	shaperforVP.showOnDiagram(diagram);
+
+}
+
+http://stackoverflow.com/questions/1163812/
+public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  SlidingDrawer drawer=(SlidingDrawer)findViewById(R.id.lay);
+  ImageView handle=(ImageView)findViewById(R.id.myImage);
+  handle.setFocusable(true);
+  handle.setOnClickListener(new OnClickListener(){
+    @Override 
+	public void onClick(    View v){
+      Log.i("test","onClick");
+    }
+  }
+);
+}
+
+http://stackoverflow.com/questions/3329469/
+{
+  DateFormat formatter=new SimpleDateFormat("mm/dd/yyyy");
+  Date someDate=new Date();
+  Date today=Calendar.getInstance().getTime();
+  try {
+    someDate=formatter.parse("06/22/2010");
+  }
+ catch (  ParseException pe) {
+    System.out.println("Parser Exception");
+  }
+  int days=Days.daysBetween(new DateTime(someDate),new DateTime(today)).getDays();
+  System.out.println(" Days Between " + someDate + " : "+ today+ " - "+ days);
+}
+
+http://stackoverflow.com/questions/775188/
+{
+  ImageButton b2=new ImageButton(getApplicationContext());
+  b2.setBackgroundResource(R.drawable.img);
+  android.widget.LinearLayout container=(android.widget.LinearLayout)findViewById(R.id.lay);
+  container.addView(b2);
+}
+
+http://stackoverflow.com/questions/288044/
+@Override 
+public void onCreate(Bundle icicle){
+  super.onCreate(icicle);
+  setContentView(R.layout.main);
+  setListAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mainItems));
+  registerForContextMenu(getListView());
+}
+
+http://stackoverflow.com/questions/10135278/
+public static String format(Date start){
+  StringBuffer result=new StringBuffer();
+  DURATION_FORMATTER.printTo(result,(ReadablePeriod)new Period(new DateTime(start),new DateTime()));
+  return result.toString();
+}
+
+http://stackoverflow.com/questions/10135278/
+public static String format(Date start,Date end){
+  StringBuffer result=new StringBuffer();
+  DURATION_FORMATTER.printTo(result,new Period(new DateTime(start),end == null ? new DateTime() : new DateTime(end)));
+  return result.toString();
+}
+
+http://stackoverflow.com/questions/2931936/
+public void setId(Integer id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/2931936/
+public void setB(B b){
+  this.b=b;
+}
+
+http://stackoverflow.com/questions/2931936/
+public void setId(Integer id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/526524/
+{
+  Chronometer t=(Chronometer)findViewById(R.id.toptime);
+  long time=SystemClock.elapsedRealtime() - t.getBase();
+  Log.d(null,"Was: " + time);
+  t.setBase(SystemClock.elapsedRealtime());
+  t.start();
+}
+
+http://stackoverflow.com/questions/8525863/
+/*
+* Returns a string in the form of "n days, x hours, y minutes"
+* */
+public static String getFormattedDateDifference(DateTime startDate, DateTime endDate) {
+    Period p = new Period(startDate, endDate,
+            PeriodType.standard().withSecondsRemoved().withMillisRemoved());
+    return PeriodFormat.getDefault().print(p);
+}
+
+http://stackoverflow.com/questions/724419/
+/** 
+ * Called when the activity is first created. 
+ */
+@Override public void onCreate(Bundle savedInstanceState){
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main2);
+  this.setTitle("ChildActivity");
+}
+
+http://stackoverflow.com/questions/724419/
+@Override public void onClick(DialogInterface arg0,int arg1){
+  startActivity(new Intent(this,ChildActivity.class));
+}
+
+http://stackoverflow.com/questions/1111980/
+public void send(){
+  mProgress=ProgressDialog.show(this,"Please wait","Please wait",true,true);
+  Thread thread=new Thread(this);
+  thread.start();
+}
+
+http://stackoverflow.com/questions/1111980/
+public void run(){
+    Thread.sleep(10000);
+	Message msg = new Message();
+	mHandler.sendMessage(msg);
+}
+
+http://stackoverflow.com/questions/4268472/
+private Object writeReplace(){
+  return new Stub(getZone());
+}
+
+http://stackoverflow.com/questions/4268472/
+Stub(DateTimeZone zone){
+  iZone=zone;
+}
+
+http://stackoverflow.com/questions/4268472/
+private Object readResolve(){
+  return ISOChronology.getInstance(iZone);
+}
+
+http://stackoverflow.com/questions/4268472/
+private void writeObject(ObjectOutputStream out) throws IOException {
+  out.writeObject(iZone);
+}
+
+http://stackoverflow.com/questions/4268472/
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+  iZone=(DateTimeZone)in.readObject();
+}
+
+http://stackoverflow.com/questions/10740221/
+public void setIp(String ip){
+  this.ip=ip;
+}
+
+http://stackoverflow.com/questions/10740221/
+public void readFromXML(){
+  try {
+    FileInputStream fis=new FileInputStream(path + fileName);
+    ServerIP server=(ServerIP)xstream.fromXML(fis,new ServerIP());
+    System.out.println("Host: " + server.getIp());
+  }
+ catch (  FileNotFoundException e) {
+    e.printStackTrace();
+  }
+}
+
+http://stackoverflow.com/questions/1629323/
+FormPanel form =new FormPanel();
+VerticalPanel holder = new VerticalPanel();
+holder.add(new Label("User ID"));
+nameTextBox = new TextBox();
+nameTextBox.setName("userid");
+holder.add(nameTextBox);
+
+ submitButton = new Button("Submit");
+ holder.add(submitButton);
+form.add(holder);
+
+submitButton.addClickListener(new ClickListener() {
+
+@Override
+public void onClick(Widget sender) {
+		form.submit();
+}
+
+});
+
+form.addFormHandler(new FormHandler() {
+		public void onSubmit(FormSubmitEvent event) {
+
+
+}
+
+public void onSubmitComplete(FormSubmitCompleteEvent event) {
+
+}
+});
+
+
+http://stackoverflow.com/questions/3533894/
+public SingleValueEnumConverter(Class type){
+  this.enumType=type;
+}
+
+http://stackoverflow.com/questions/3533894/
+public boolean canConvert(Class c){
+  return c.equals(enumType);
+}
+
+http://stackoverflow.com/questions/3533894/
+public Object fromString(String value){
+  return Enum.valueOf(enumType,value);
+}
+
+http://stackoverflow.com/questions/531324/
+@Override public void drawMyLocation(Canvas canvas,MapView mapView,Location lastFix,GeoPoint myLocation,long when){
+  super.drawMyLocation(canvas,mapView,lastFix,myLocation,when);
+  Location bLocation=new Location("reverseGeocoded");
+  bLocation.setLatitude(FindList.gpslat);
+  bLocation.setLongitude(FindList.gpslong);
+  Location aLocation=new Location("reverseGeocoded");
+  aLocation.setLatitude(myLocation.getLatitudeE6());
+  aLocation.setLongitude(myLocation.getLongitudeE6());
+  aLocation.set(aLocation);
+  bLocation.set(bLocation);
+  int distance=(int)aLocation.distanceTo(bLocation);
+  String str=" (" + String.valueOf(distance) + " meters)";
+}
+
+http://stackoverflow.com/questions/669764/
+private void Login(){
+  HttpClient httpClient=new DefaultHttpClient();
+  try {
+    String url="http://192.168.1.5:8000/Login?username=test&password=test";
+    HttpGet method=new HttpGet(new URI(url));
+    HttpResponse response=httpClient.execute(method);
+    if (response != null) {
+      Log.i("login","received " + getResponse(response.getEntity()));
+    }
+ else {
+      Log.i("login","got a null response");
+    }
+  }
+ catch (  IOException e) {
+    Log.e("error",e.getMessage());
+  }
+catch (  URISyntaxException e) {
+    Log.e("error",e.getMessage());
+  }
+}
+
+http://stackoverflow.com/questions/669764/
+private String getResponse(HttpEntity entity){
+  String response="";
+  try {
+    int length=(int)entity.getContentLength();
+    StringBuffer sb=new StringBuffer(length);
+    InputStreamReader isr=new InputStreamReader(entity.getContent(),"UTF-8");
+    char buff[]=new char[length];
+    int cnt;
+    while ((cnt=isr.read(buff,0,length - 1)) > 0) {
+      sb.append(buff,0,cnt);
+    }
+    response=sb.toString();
+    isr.close();
+  }
+ catch (  IOException ioe) {
+    ioe.printStackTrace();
+  }
+  return response;
+}
+
+http://stackoverflow.com/questions/2456909/
+public DetailDollarsConverter(Mapper mapper,ReflectionProvider reflectionProvider){
+  super(mapper,reflectionProvider);
+}
+
+http://stackoverflow.com/questions/2456909/
+@Override public void marshal(Object obj,HierarchicalStreamWriter writer,MarshallingContext context){
+  super.marshal(obj,writer,context);
+  
+    DetailDollars dl = (DetailDollars) obj;
+
+    writer.startNode("node4");
+    writer.setValue(Double.toString(dl.getNode1() / dl.getNode2()));
+    writer.endNode();
+}
+
+http://stackoverflow.com/questions/2456909/
+@Override public Object unmarshal(HierarchicalStreamReader reader,UnmarshallingContext context){
+  return super.unmarshal(reader,context);
+}
+
+http://stackoverflow.com/questions/2456909/
+@SuppressWarnings("unchecked") 
+@Override 
+public boolean canConvert(Class clazz){
+  Object o=null;
+  return clazz.equals(o);
+}
+
+http://stackoverflow.com/questions/1318732/
+public void CountryFilterView(){
+  mainPanel.setSize("100%","100%");
+  mainPanel.setSplitPosition("50%");
+  String randomText="This is some text to show how the contents on either " + "side of the splitter flow.   " + "This is some text to show how the contents on either "+ "side of the splitter flow.   "+ "This is some text to show how the contents on either "+ "side of the splitter flow.   ";
+  mainPanel.setTopWidget(new HTML(randomText));
+  mainPanel.setBottomWidget(new HTML(randomText));
+  initWidget(mainPanel);
+}
+
+http://stackoverflow.com/questions/3358063/
+  VerticalPanel eventDetailWindow=new VerticalPanel();
+  final DialogBox dialogBox2=new DialogBox();
+  dialogBox2.setText("Event Detail");
+  dialogBox2.setAnimationEnabled(true);
+  final HTML serverResponse3=new HTML("<b> ok, this is working</b>");
+  serverResponse3.addStyleName("detailView");
+  eventDetailWindow.add(serverResponse3);
+  eventDetailWindow.addStyleName("detailWindow");
+  dialogBox2.setWidget(eventDetailWindow);
+  RootPanel.get("detailWindow").add(eventDetailWindow);
+
+http://stackoverflow.com/questions/3509824/
+public static void main(String[] args) {
+    BasicConfigurator.configure();
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Transaction transaction = null;
+    try {
+        transaction = session.beginTransaction();
+        Label label = new Label("vijay");
+        Query query=session.createQuery("from vij");
+        List list=query.list();
+            for (Iterator it=list.iterator();it.hasNext();)
+        {
+            System.out.println(label.getId());          
+        }
+            transaction.commit();
+
+    } catch (HibernateException e) {
+
+        if (transaction != null) {
+              transaction.rollback();
+                        }
+                    e.printStackTrace();
+    } finally {
+        session.close();
+    }
+
+}
+
+
+http://stackoverflow.com/questions/6387723/
+{
+  DateTime d1=new DateTime(2011,6,17,13,13,5,0);
+  DateTime d2=new DateTime(2011,6,17,10,17,3,0);
+  Period negativePeriod=new Period(d1,d2);
+  Period positivePeriod=new Period(d2,d1);
+  PeriodFormatter pf=new PeriodFormatterBuilder().minimumPrintedDigits(2).appendHours().appendSuffix(":").rejectSignedValues(true).appendMinutes().appendSuffix(":").appendSeconds().toFormatter();
+  System.out.printf("Negative Period: %s\n",pf.print(negativePeriod));
+  System.out.printf("Positive Period: %s\n",pf.print(positivePeriod));
+}
+
+http://stackoverflow.com/questions/10106143/
+public static void main(String[] args) {
+	Locale.setDefault(Locale.GERMAN);
+	final PeriodFormatter periodFormatter = 
+			 PeriodFormat.wordBased(Locale.ENGLISH);
+	final Period period = new Period(6, 5, 4, 3);
+	final String s = period.toString(periodFormatter);
+	// i'm expecting english to be outputted
+	System.out.println("s = " + s); // outputs german: 6 Stunden, 5 Minuten, 4 Sekunden und 3 Millisekunden
+}
+
+http://stackoverflow.com/questions/442496/
+{
+  try {
+    InetAddress server=Inet4Address.getByName("thehost");
+    if (server.isReachable(5000)) {
+      Log.d(TAG,"Ping!");
+    }
+    Socket clientsocket=new Socket(server,8080);
+  }
+ catch (  UnknownHostException e) {
+    Log.e(TAG,"Server Not Found");
+  }
+catch (  IOException e) {
+    Log.e(TAG,"Couldn't open socket");
+  }
+}
+
+http://stackoverflow.com/questions/988217/
+public void onModuleLoad(){
+  RootPanel.get("inputName").add(nameTxt);
+  RootPanel.get("btnSave").add(btnSave);
+}
+
+http://stackoverflow.com/questions/988217/
+private Button getBtnSave(){
+   Button btnSave = new Button("SAVE");
+
+  btnSave.addClickHandler(
+    new ClickHandler(){
+     public void onClick(ClickEvent event){
+      saveData2DB(nameTxt.getText());
+     }
+    } 
+  );
+  return btnSave;
+
+}
+
+http://stackoverflow.com/questions/988217/
+void saveData2DB(String name){
+  AsyncCallback<String> callback=new AsyncCallback<String>(){
+    public void onFailure(    Throwable caught){
+      Window.alert("WOOOHOOO, ERROR: " + SERVER_ERROR);
+    }
+    public void onSuccess(    String result){
+      Window.alert("Server is saying: ' " + result + "'");
+    }
+  };
+  
+   ArrayList<Address> aa = new ArrayList<Address>();
+  aa.add(new Address("123 sasdf","", "Some City", "AZ", "93923-2321"));
+  aa.add(new Address("23432 asdf", "Appt 34", "Another City", "AZ", "43434-4432"));
+
+  Person p = new Person();
+  p.setName(name);
+  p.setAge(23);
+  p.setGender('m');
+  p.setAddresses(aa);
+
+  // !!!!!!!!!!!!!!!!!!  SERVER CALL !!!!!!!!!!!!!!!!!!
+  rpccallService.saveName(p, callback);
+  // !!!!!!!!!!!!!!!!!!  SERVER CALL !!!!!!!!!!!!!!!!!!
+
+}
+
+http://stackoverflow.com/questions/3353405/
+@Override public void onModuleLoad(){
+  Label label=new Label("hello world");
+  Button button=new Button("say something");
+  button.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      Window.alert("hello again");
+    }
+  }
+);
+  RootPanel.get().add(label);
+  RootPanel.get().add(button);
+}
+
+http://stackoverflow.com/questions/3513366/
+public static void main(String[] args)
+{                       
+	Session session = null;
+	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+	MyClass str1 = null;
+	Transaction tx = null;
+	try 
+	{
+		session = sessionFactory.openSession();
+		tx = session.beginTransaction();
+		str1 = new MyClass("hello");
+		session.save(str1);
+		tx.commit();
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	finally 
+	{
+		session.close();
+	}   
+}
+
+http://stackoverflow.com/questions/1881173/
+/** 
+ * Create a remote service proxy to talk to the server-side User Data   service.  
+ */
+public ProfileWidget() {  
+
+        this.rpcWidget = new RPCWidget(this);  
+
+        this.initProfileImage();  
+        this.initLogoImage();  
+
+        panel.add(picSquare, DockPanel.WEST);  
+        panel.add(html, DockPanel.CENTER);  
+
+        VerticalPanel verticalPanel = new VerticalPanel();  
+        verticalPanel.add(logo);  
+        verticalPanel.add(logoutButton);  
+
+        panel.add(verticalPanel, DockPanel.EAST);  
+
+        panel.add(rpcWidget, DockPanel.SOUTH);  
+
+        initWidget(panel);  
+
+    }  
+
+http://stackoverflow.com/questions/1881173/
+private void initProfileImage(){
+  SandpitImageBundle sib=(SandpitImageBundle)GWT.create(SandpitImageBundle.class);
+  AbstractImagePrototype aip=sib.ajaxLoader();
+  sib.applyTo(this.picSquare);
+}
+
+http://stackoverflow.com/questions/1881173/
+private void initLogoImage(){
+  SandpitImageBundle sib=(SandpitImageBundle)GWT.create(SandpitImageBundle.class);
+  AbstractImagePrototype aip=sib.logo();
+  aip.applyTo(this.logo);
+}
+
+http://stackoverflow.com/questions/1651138/
+public gwt_class_11(){
+  dictionaryPanel=new HorizontalPanel();
+  wordLabel=new Label("Word");
+}
+
+http://stackoverflow.com/questions/1651138/
+@Override public void onModuleLoad(){
+  dictionaryPanel.add(wordLabel);
+  RootPanel.get("dictionary").add(dictionaryPanel);
+}
+
+http://stackoverflow.com/questions/328832/
+  XStream xs=new XStream();
+  xs.registerConverter(new CollectionConverter(xs.getMapper()){
+    @Override public void marshal(    Object source,    HierarchicalStreamWriter writer,    MarshallingContext context){
+      org.hibernate.collection.PersistentSet ps=null;
+      super.marshal(new HashSet(ps),writer,context);
+    }
+    @Override public boolean canConvert(    Class type){
+      return type.isAssignableFrom(org.hibernate.collection.PersistentSet.class);
+    }
+  }
+,XStream.PRIORITY_VERY_HIGH);
+  Object processInstance=null;
+  String s=xs.toXML(processInstance);
+
+  
+http://stackoverflow.com/questions/1440557/
+public static void main(String[] args) {
+  PeriodFormatter daysHoursMinutes = new PeriodFormatterBuilder()
+    .appendDays()
+    .appendSuffix(" day", " days")
+    .appendSeparator(" and ")
+    .appendMinutes()
+    .appendSuffix(" minute", " minutes")
+    .appendSeparator(" and ")
+    .appendSeconds()
+    .appendSuffix(" second", " seconds")
+    .toFormatter();
+
+  Period period = new Period(72, 24, 12, 0);
+
+  System.out.println(daysHoursMinutes.print(period));
+  System.out.println(daysHoursMinutes.print(period.normalizedStandard()));
+}
+
+http://stackoverflow.com/questions/4001795/
+public static void main(String[] args)
+{
+	SessionFactory factory = new AnnotationConfiguration().configure().buildSessionFactory();
+	Session session = factory.openSession();
+	session.beginTransaction();
+
+	Message m1 = new Message("Hibernated a  messages on " + new Date());
+	session.save(m1);
+	session.getTransaction().commit();
+	session.close();
+}
+
+http://stackoverflow.com/questions/1105141/
+private long insertRow(int rowParameter,String rowValue,SQLiteDatabase db){
+  long res=-1;
+  ContentValues settingsParameterValues=new ContentValues();
+  settingsParameterValues.put(KEY_NAME,rowParameter);
+  settingsParameterValues.put(VALUE,rowValue);
+  if (db != null) {
+    res=db.insert(DATABASE_TABLE,null,settingsParameterValues);
+  }
+  return res;
+}
+
+http://stackoverflow.com/questions/2679247/
+  int width=200;
+  int height=200;
+  int overHeight=40;
+  AbsolutePanel absPanel=new AbsolutePanel();
+  absPanel.setSize(width + "px",height + "px");
+  SimplePanel underPanel=new SimplePanel();
+  underPanel.setWidth(width + "px");
+  underPanel.setHeight(height + "px");
+  underPanel.getElement().getStyle().setBackgroundColor("red");
+  SimplePanel overPanel=new SimplePanel();
+  overPanel.setWidth(width + "px");
+  overPanel.setHeight(overHeight + "px");
+  overPanel.getElement().getStyle().setBackgroundColor("black");
+  overPanel.getElement().getStyle().setProperty("filter","alpha(opacity=20)");
+  absPanel.add(underPanel,0,0);
+  absPanel.add(overPanel,0,0);
+  RootPanel.get("test").add(absPanel);
+  absPanel.getElement().getStyle().setProperty("filter","alpha(opacity=100)");
+
+http://stackoverflow.com/questions/2780967/
+printDuration(new Duration(5000)); // Prints "5" => OK
+printDuration(new Duration(4900)); // Prints "4" => need "5"
+printDuration(new Duration(1000)); // Prints "1" => OK
+printDuration(new Duration(900));  // Prints "0" => need "1"
+printDuration(new Duration(0));    // Prints "0" => OK
+
+http://stackoverflow.com/questions/2780967/
+static void printDuration(Duration d){
+  System.out.println(d.toPeriod(PeriodType.time()).toString(new PeriodFormatterBuilder().printZeroAlways().appendSeconds().toFormatter()));
+}
+
+http://stackoverflow.com/questions/2931936/
+public static void main(String[] args){
+	RunTests4 d = new RunTests4();
+	d.run3();
+}
+
+http://stackoverflow.com/questions/2931936/
+public void run3(){
+  Session session=getSession();
+  session.beginTransaction();
+  createEntities(session);
+  session.getTransaction().commit();
+  System.out.println("NOW WITH A NEW TRANSACTION");
+  session=getSession();
+  session.beginTransaction();
+  Query query=session.createQuery("from A");
+  List results=query.list();
+  for (int i=0; i < results.size(); i++) {
+    System.out.println("Row " + i + " was:");
+    A a=(A)results.get(i);
+    System.out.println("Result " + i);
+    System.out.println(a.toString());
+  }
+  session.getTransaction().commit();
+}
+
+http://stackoverflow.com/questions/2931936/
+public void createEntities(Session session){
+  for (int i=0; i < 2; i++) {
+    A a=new A();
+    B b=new B();
+    a.setB(b);
+    session.save(a);
+  }
+}
+
+http://stackoverflow.com/questions/2931936/
+public Session getSession(){
+  if (sessionFactory == null) {
+    AnnotationConfiguration config=new AnnotationConfiguration();
+    config.addAnnotatedClass(A.class);
+    config.addAnnotatedClass(B.class);
+    config.configure();
+    new SchemaExport(config).create(true,true);
+    sessionFactory=config.buildSessionFactory();
+  }
+  Session session=sessionFactory.getCurrentSession();
+  return session;
+}
+
+http://stackoverflow.com/questions/2931936/
+public void setId(Integer id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/2931936/
+public void setB(B b){
+  this.b=b;
+}
+
+http://stackoverflow.com/questions/2931936/
+public void setId(Integer id){
+  this.id=id;
+}
+
+http://stackoverflow.com/questions/8654398/
+public static int getDaysBetweenTwoDates(final LocalDateTime oldDate,final LocalDateTime newDate){
+  System.out.println("--Calculate days between: " + oldDate.toString() + "->"+ newDate);
+  Days days=Days.daysBetween(new DateMidnight(oldDate.toDateTime()),new DateMidnight(newDate.toDateTime()));
+  System.out.println("----DIFF: " + days.size());
+  return days.size();
+}
+
+http://stackoverflow.com/questions/992880/
+{
+  HttpHost target=new HttpHost("http://" + ServiceWrapper.SERVER_HOST,ServiceWrapper.SERVER_PORT);
+  HttpGet get=new HttpGet("/list");
+  String result=null;
+  HttpEntity entity=null;
+  HttpClient client=new DefaultHttpClient();
+  try {
+    HttpResponse response=client.execute(target,get);
+    entity=response.getEntity();
+    result=EntityUtils.toString(entity);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    if (entity != null)     try {
+      entity.consumeContent();
+    }
+ catch (    IOException e) {
+    }
+  }
+  return result;
+}
+
