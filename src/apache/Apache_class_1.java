@@ -1,6 +1,5 @@
 package apache;
 
-import java.awt.font.NumericShaper.Range;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -28,7 +27,6 @@ public class Apache_class_1 {
     BufferedOutputStream bufOStream = null;
     POIFSFileSystem fileSystem = null;
     HWPFDocument document = null;
-    Range docRange = null;
     Paragraph paragraph = null;
     CharacterRun charRun = null;
     Set<String> keySet = null;

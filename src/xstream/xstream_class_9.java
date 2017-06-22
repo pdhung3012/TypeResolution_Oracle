@@ -34,4 +34,5 @@ public class xstream_class_9 {
 	            e.printStackTrace();
 	        }
 	    }
+	}
 }

@@ -1,4 +1,6 @@
 package jodatime;
+import java.util.Date;
+
 //ID = 8109450
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -10,7 +12,7 @@ public class JodaTime22 {
 		// TODO Auto-generated method stub
 
 	}
-	public String getDateFromDateTime (Date date, Boolean display) throws ParseException {
+	public String getDateFromDateTime (Date date, Boolean display) {
 
 	    /*
 	     * SimpleDateFormat working as designed, but pf_ordersController.selected.returnDateTime displaying incorrect date/time
