@@ -12,7 +12,7 @@ import org.joda.time.LocalDateTime;
 public class JodaTime21 {
 	public static void main(String[] args) {
 	DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	Date dt;
+	Date dt = null;
 	try {
 		dt = formatter.parse("2011-10-23 12:00:00");
 	} catch (ParseException e) {

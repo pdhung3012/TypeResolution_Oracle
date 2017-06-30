@@ -33,9 +33,6 @@ public class xstream_class_22 {
     System.out.println(xs.fromXML(new File("in.xml")));
 
     System.out.println("Marshalling:");
-    System.out.println(xs.toXML(new xstream_class_22("World",
-           Arrays.asList(new NumberOfPersonnel(2001, 1000),
-                         new NumberOfPersonnel(2002, 500)))));
   }
   @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
   public class NumberOfPersonnel {

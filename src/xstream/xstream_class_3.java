@@ -5,7 +5,10 @@ import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-
+class MockMessage{
+	public MockMessage()
+	{}
+}
 public class xstream_class_3 {
 
 
@@ -15,7 +18,7 @@ public class xstream_class_3 {
 
         MockMessage mock1 = new MockMessage();
         MockMessage mock2 = new MockMessage();
-        MockMessageOther mock3 = new MockMessageOther();
+        MockMessage mock3 = new MockMessage();
 
         List messages = new ArrayList();
         messages.add(mock1);
